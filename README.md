@@ -12,7 +12,7 @@ Most programing projects (personal or at @Sendyne) are usually cross-platform or
 
 Setting up project in [CMake], and therefore in [CLion], can be a bit cumbersome. This project is an effort to provide some basic commands to facilitate project setup in [CMake] and [CLion].
 
-This project historically started for personal projects and then got sanitized to be used in production at Sendyne.
+This project was originally developed for personal projects and then got sanitized to be used in production at Sendyne.
 
 
 ## Module description ##

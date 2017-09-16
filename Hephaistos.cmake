@@ -1,8 +1,8 @@
 # -------------------------------------------------------------------------- #
-# CMake Hephaistos
+# CMake Hephaistos module
 #
-# Nicolas Clauvelin (nclauvelin@sendyne.com)
-# Sendyne Corp., 2017
+# Nicolas Clauvelin (n.clauvelin+code@gmail.com)
+# nicocvn.com, 2017
 #
 #
 # MODULE:   Hephaistos
