@@ -1,9 +1,9 @@
-# -------------------------------------------------------------------------- #
+# ---------------------------------------------------------------------------- #
 # CMake Hephaistos::ToolchainManager toolchain file
 # Toolchain file for GCC on Linux with support for recent versions.
 #
-# Nicolas Clauvelin (nclauvelin@sendyne.com)
-# Sendyne Corp., 2017
+# Nicolas Clauvelin (n.clauvelin+code@gmail.com)
+# nicocvn.com, 2017
 #
 #
 # MODULE:   Hephaistos
@@ -15,7 +15,7 @@
 #   Modern versions support LTO and recent C++ standards (among other things).
 #   This is therefore the recommended choice for Linux builds.
 #
-# -------------------------------------------------------------------------- #
+# ---------------------------------------------------------------------------- #
 
 
 # Search for gcc-6 and gcc-7.

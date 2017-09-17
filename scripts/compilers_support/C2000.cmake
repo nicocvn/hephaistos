@@ -1,8 +1,8 @@
-# -------------------------------------------------------------------------- #
+# ---------------------------------------------------------------------------- #
 # CMake Hephaistos::CompilerSetup TI C2000 bare metal compiler flags
 #
-# Nicolas Clauvelin (nclauvelin@sendyne.com)
-# Sendyne Corp., 2017
+# Nicolas Clauvelin (n.clauvelin+code@gmail.com)
+# nicocvn.com, 2017
 #
 #
 # DESCRIPTION:
@@ -21,7 +21,7 @@
 #   This setup has been tested and validated on the TI LAUNCHXL F2837xS board.
 #   Any changes should be followed by a rigorous testing.
 #
-# -------------------------------------------------------------------------- #
+# ---------------------------------------------------------------------------- #
 
 
 # Enforce ASM support.

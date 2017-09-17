@@ -1,8 +1,8 @@
-# -------------------------------------------------------------------------- #
+# ---------------------------------------------------------------------------- #
 # CMake Hephaistos::CompilerSetup OSX GCC compiler flags
 #
-# Nicolas Clauvelin (nclauvelin@sendyne.com)
-# Sendyne Corp., 2017
+# Nicolas Clauvelin (n.clauvelin+code@gmail.com)
+# nicocvn.com, 2017
 #
 #
 # DESCRIPTION:
@@ -14,7 +14,7 @@
 #   MinSizeRel relies on LTO and OS X dead strip to minimize binary size.
 #   For MinSizeRel exceptions and RTTI are disabled.
 #
-# -------------------------------------------------------------------------- #
+# ---------------------------------------------------------------------------- #
 
 
 # C99 and C++11 standards.

@@ -1,8 +1,8 @@
-# -------------------------------------------------------------------------- #
+# ---------------------------------------------------------------------------- #
 # CMake Hephaistos::CompilerSetup ARM GCC bare metal compiler flags
 #
-# Nicolas Clauvelin (nclauvelin@sendyne.com)
-# Sendyne Corp., 2017
+# Nicolas Clauvelin (n.clauvelin+code@gmail.com)
+# nicocvn.com, 2017
 #
 #
 # DESCRIPTION:
@@ -15,7 +15,7 @@
 #   Some ARM related flags are also defined in the toolchain support for GCC
 #   ARM (see GCC_ARM_BAREMETAL.cmake).
 #
-# -------------------------------------------------------------------------- #
+# ---------------------------------------------------------------------------- #
 
 
 # C99 and C++11 standards.

@@ -1,11 +1,11 @@
-# -------------------------------------------------------------------------- #
+# ---------------------------------------------------------------------------- #
 # CMake Hephaistos::ToolchainManager toolchain file
 # Toolchain file for GCC ARM bare metal.
 #
-# Nicolas Clauvelin (nclauvelin@sendyne.com)
-# Sendyne Corp., 2017
-
-
+# Nicolas Clauvelin (n.clauvelin+code@gmail.com)
+# nicocvn.com, 2017
+#
+#
 # MODULE:   Hephaistos
 #
 # REQUIREMENTS:
@@ -16,7 +16,7 @@
 #   GCC ARM. This targets thumb-enabled ARM processors. The specific CPU and
 #   FPU types needs to be specified as regular compiler flags.
 #
-# -------------------------------------------------------------------------- #
+# ---------------------------------------------------------------------------- #
 
 
 # Adapt program suffix for Windows platforms.

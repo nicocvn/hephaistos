@@ -1,9 +1,9 @@
-# -------------------------------------------------------------------------- #
+# ---------------------------------------------------------------------------- #
 # CMake Hephaistos::ToolchainManager toolchain file
 # Toolchain file for GCC on OS X through Homebrew.
 #
-# Nicolas Clauvelin (nclauvelin@sendyne.com)
-# Sendyne Corp., 2017
+# Nicolas Clauvelin (n.clauvelin+code@gmail.com)
+# nicocvn.com, 2017
 #
 #
 # MODULE:   Hephaistos
@@ -11,7 +11,7 @@
 # REQUIREMENTS:
 #   This requires a functional installation of the GCC toolchain in Homebrew.
 #
-# -------------------------------------------------------------------------- #
+# ---------------------------------------------------------------------------- #
 
 
 # Search for gcc-6 and gcc-7.

@@ -1,18 +1,18 @@
-# -------------------------------------------------------------------------- #
+# ---------------------------------------------------------------------------- #
 # CMake Hephaistos::ToolchainManager toolchain file
 # Toolchain file for TI C2000 bare metal.
 #
-# Nicolas Clauvelin (nclauvelin@sendyne.com)
-# Sendyne Corp., 2017
-
-
+# Nicolas Clauvelin (n.clauvelin+code@gmail.com)
+# nicocvn.com, 2017
+#
+#
 # MODULE:   Hephaistos
 #
 # REQUIREMENTS:
 #   TI_CGT_PATH needs to be defined to point at the root directory of the TI
 #   CGT installation.
 #
-# -------------------------------------------------------------------------- #
+# ---------------------------------------------------------------------------- #
 
 
 # Adapt program suffix for Windows platforms.

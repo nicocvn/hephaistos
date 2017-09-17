@@ -1,8 +1,8 @@
-# -------------------------------------------------------------------------- #
+# ---------------------------------------------------------------------------- #
 # CMake Hephaistos::CompilerSetup Linux/Unix GCC compiler flags
 #
-# Nicolas Clauvelin (nclauvelin@sendyne.com)
-# Sendyne Corp., 2017
+# Nicolas Clauvelin (n.clauvelin+code@gmail.com)
+# nicocvn.com, 2017
 #
 #
 # DESCRIPTION:
@@ -16,7 +16,7 @@
 #   Note that, LTO is disabled as it seems that as of today it causes numerous
 #   issues on Linux (... this is somewhat worrisome).
 #
-# -------------------------------------------------------------------------- #
+# ---------------------------------------------------------------------------- #
 
 
 # C99 and C++11 standards.
