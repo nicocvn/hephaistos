@@ -80,10 +80,29 @@ The supported configurations are (click on the links to see details):
 * [Linux/Unix + GCC](scripts/compilers_support/LinuxUnix_GCC.cmake)
 * [OSX + Clang](scripts/compilers_support/OSX_Clang.cmake)
 * [OSX + GCC](scripts/compilers_support/OSX_GCC.cmake)
-* [ARM + GCC](scripts/compilers_support/ARM_GCC.cmake): this will activate support for the MK64FN1M0xxx12 MCU and set the compiler for bare metal builds
 * [TI C2000](scripts/compilers_support/C2000.cmake): this will set the compiler for bare metal builds
 
 Note that, compiler flags for GCC on Linux and Unix platforms are functional for recent GCC versions. It is recommended to use the `GCC_LINUX_RECENT` toolchain ID to enforce this usage.
+
+### GCC ARM compiler ###
+When using the GCC ARM toolchain for embedded projects, the compiler setup command requires the type of ARM hardware to be explicitly specified. This is used by the script to properly define compiler flags for hardware support (*e.g.*, FPU).
+
+The current implementation supports the following ARM architectures:
+
+* Cortex-M0+
+* Cortex-M4
+
+To use a specific architecture the compiler setup should be invoked as follow:
+
+```
+# For Cortex-M0+.
+heph_setup_compiler("M0+")
+
+# For Cortex-M4.
+heph_setup_compiler("M4")
+```
+
+The compiler setup is designed for bare metal builds ([ARM + GCC](scripts/compilers_support/ARM_GCC.cmake)).
 
 
 [CMake]: https://cmake.org/
