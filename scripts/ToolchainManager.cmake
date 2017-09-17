@@ -1,8 +1,8 @@
-# -------------------------------------------------------------------------- #
+# ---------------------------------------------------------------------------- #
 # CMake Hephaistos::ToolchainManager
 #
-# Nicolas Clauvelin (nclauvelin@sendyne.com)
-# Sendyne Corp., 2017
+# Nicolas Clauvelin (n.clauvelin+code@gmail.com)
+# nicocvn.com, 2017
 #
 #
 # MODULE:   Hephaistos
@@ -45,7 +45,7 @@
 #       --- TI_C2000 ---
 #       The variable TI_CGT_PATH needs to be set to the toolchain path.
 #
-# -------------------------------------------------------------------------- #
+# ---------------------------------------------------------------------------- #
 
 
 # CMake minimum version and dependencies.

@@ -4,13 +4,13 @@ Copyright Nicolas Clauvelin, 2017. All rights reserved ([LICENSE](LICENSE)).
 
 
 ## Motivation ##
-Most programing projects (personal or at @Sendyne) are usually cross-platform or designed for a specific hardware (usually embedded). [CMake] therefore seems like a good choice as it provides:
+Setting up project in [CMake], and therefore in [CLion], can be a bit cumbersome. This project is an effort to provide some basic commands to facilitate project setup in [CMake] and [CLion].
+
+Most of my personal programing projects are usually cross-platform or sometimes designed for a specific hardware (usually embedded). [CMake] therefore seems like a good choice as it provides:
 
 * low-level project management functionalities,
 * cross-platform support for project configuration, build and install steps,
 * can be used as the project format in [CLion].
-
-Setting up project in [CMake], and therefore in [CLion], can be a bit cumbersome. This project is an effort to provide some basic commands to facilitate project setup in [CMake] and [CLion].
 
 This project was originally developed for personal projects and then got sanitized to be used in production at Sendyne.
 

@@ -1,4 +1,4 @@
-# -------------------------------------------------------------------------- #
+# ---------------------------------------------------------------------------- #
 # CMake Hephaistos module
 #
 # Nicolas Clauvelin (n.clauvelin+code@gmail.com)
@@ -10,7 +10,7 @@
 #   This file is to be included by any CMake script using Hephaistos.
 #   See README.md for mode details about functionalities.
 #
-# -------------------------------------------------------------------------- #
+# ---------------------------------------------------------------------------- #
 
 # CMake minimum version.
 cmake_minimum_required(VERSION 3.0)
