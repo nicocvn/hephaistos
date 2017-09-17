@@ -47,6 +47,8 @@ The table below sums up the supported toolchains:
 | ARM      | GCC       | YES | use `GCC_ARM_BAREMETAL` ID                   |
 | TI C2000 | TI CGT    | YES | use `TI_C2000` ID                            |
 
+The TI C2000 toolchain support is somewhat still experimental.
+
 ### Note on Linux support ###
 Most Linux distributions are still providing *old* GCC versions (for example, GCC-4.X or GCC-5.X). In order to simplify support for modern versions, the toolchain ID `GCC_LINUX_RECENT` should be used to enforce GCC-6.X or GCC-7.X usage. It is strongly recommended to use this toolchain for any Linux projects.
 
@@ -64,6 +66,8 @@ This will use the default location for the project tree (*i.e.*, the [CMake] bui
 ```
 cmake -DBUILD_DIR=/path/to/build/dir -DINSTALL_DIR=/path/to/install/dir
 ```
+
+This command will create dedicated folder for each build types in the build and install directories.
 
 
 ## heph_setup_compiler ##
