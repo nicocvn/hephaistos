@@ -85,13 +85,14 @@ set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 # C ARM specifics flags.
 set(C_ARM_SPECIFICS_FLAGS
     "-mthumb -ffreestanding -fno-move-loop-invariants -fmessage-length=0\
- -funsigned-char -fomit-frame-pointer -ffunction-sections -fdata-sections")
+ -funsigned-char -fomit-frame-pointer -ffunction-sections -fdata-sections\
+ -nostdlib")
 # C++ ARM specifics flags.
 set(CXX_ARM_SPECIFICS_FLAGS
     "-mthumb -ffreestanding -fno-move-loop-invariants -fmessage-length=0\
  -funsigned-char -fomit-frame-pointer -ffunction-sections -fdata-sections\
  -fabi-version=0 -fno-exceptions -fno-rtti -fno-use-cxa-atexit\
- -fno-threadsafe-statics")
+ -fno-threadsafe-statics -nostdlib")
 
 # Compile object definitions.
 set(CMAKE_C_COMPILE_OBJECT

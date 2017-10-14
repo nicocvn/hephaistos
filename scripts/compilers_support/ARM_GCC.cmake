@@ -7,10 +7,19 @@
 #
 # DESCRIPTION:
 #
-#   Regular flags with some added warnings for debug builds.
-#   C++14 disabled.
-#   Code reduction is activated for all build types using function and data
-#   sections with gc-sections. In addition, for MinSizeReal Os is used.
+#   Basic ARM bare metal flags are defined during toolchain compilation and
+#   architecture specific flags (e.g., Cortex-M4) are managed by the
+#   CompilerSetup script.
+#
+#   For all build types debug symbols are generated. This is not an issue as for
+#   bare metal a binary will be produced by objcopy which strips the debug
+#   information. This is however useful to perform meaningful remote debugging.
+#
+#   Except for Debug build types LTO is always enabled. C++14 is disabled for
+#   all build types.
+#   
+#   Release and RelWithDebInfo build types only differ in the amount of debug
+#   symbols generated.
 #
 #   Some ARM related flags are also defined in the toolchain support for GCC
 #   ARM (see GCC_ARM_BAREMETAL.cmake).
@@ -40,8 +49,7 @@ set(C_DEBUG_FLAGS
     -Wno-unused-parameter
     -Wuninitialized
     -Wdouble-promotion
-    -Wconversion
-    -Wl,--gc-sections)
+    -Wconversion)
 
 # C++ debug flags.
 set(CXX_DEBUG_FLAGS
@@ -58,8 +66,7 @@ set(CXX_DEBUG_FLAGS
     -Wdouble-promotion
     -Wconversion
     -Wno-c++14-compat
-    -Weffc++
-    -Wl,--gc-sections)
+    -Weffc++)
 
 
 # --- Release flags ---
@@ -68,18 +75,20 @@ set(CXX_DEBUG_FLAGS
 set(C_RELEASE_FLAGS
     ${C_CORTEX_SPECIFIC_FLAGS}
     -O2
+    -g
     -DNDEBUG
     -flto
-    -Wl,--gc-sections,-flto,-s,--as-needed,--relax)
+    -Wl,--as-needed,--relax,-flto)
 
 # C++ release flags.
 set(CXX_RELEASE_FLAGS
     ${CXX_CORTEX_SPECIFIC_FLAGS}
     -Wno-c++14-compat
     -O2
+    -g3
     -DNDEBUG
     -flto
-    -Wl,--gc-sections,-flto,-s,--as-needed,--relax)
+    -Wl,--as-needed,--relax,-flto)
 
 
 # --- RelWithDebInfo flags ---
@@ -88,43 +97,42 @@ set(CXX_RELEASE_FLAGS
 set(C_RELWITHDEBINFO_FLAGS
     ${C_CORTEX_SPECIFIC_FLAGS}
     -O2
-    -g
+    -g3
     -DNDEBUG
-    -Wl,--gc-sections,-flto,-s,--as-needed,--relax)
+    -flto
+    -Wl,--as-needed,--relax,-flto)
 
 # C++ release with debug info flags.
 set(CXX_RELWITHDEBINFO_FLAGS
     ${CXX_CORTEX_SPECIFIC_FLAGS}
     -Wno-c++14-compat
     -O2
-    -g
+    -g3
     -DNDEBUG
-    -Wl,--gc-sections,-flto,-s,--as-needed,--relax)
+    -flto
+    -Wl,--as-needed,--relax,-flto)
 
 
 # --- MinSizeRel flags ---
-
-# It should be check if visibility settings could help further reducing the
-# code size.
 
 # C minimal size release flags.
 set(C_MINSIZEREL_FLAGS
     ${C_CORTEX_SPECIFIC_FLAGS}
     -Os
+    -g
     -DNDEBUG
     -flto
-    -s
-    -Wl,--gc-sections,-s,--as-needed,--relax,-flto)
+    -Wl,--as-needed,--relax,-flto)
 
 # C++ minimal size release flags.
 set(CXX_MINSIZEREL_FLAGS
     ${CXX_CORTEX_SPECIFIC_FLAGS}
     -Wno-c++14-compat
     -Os
+    -g
     -DNDEBUG
     -flto
-    -s
-    -Wl,--gc-sections,-s,--as-needed,--relax,-flto)
+    -Wl,--as-needed,--relax,-flto)
 
 
 # --- Compiler flags setup ---
