@@ -75,7 +75,7 @@ set(CXX_DEBUG_FLAGS
 set(C_RELEASE_FLAGS
     ${C_CORTEX_SPECIFIC_FLAGS}
     -O2
-    -g
+    -g3
     -DNDEBUG
     -flto
     -Wl,--as-needed,--relax,-flto)
@@ -119,7 +119,7 @@ set(CXX_RELWITHDEBINFO_FLAGS
 set(C_MINSIZEREL_FLAGS
     ${C_CORTEX_SPECIFIC_FLAGS}
     -Os
-    -g
+    -g3
     -DNDEBUG
     -flto
     -Wl,--as-needed,--relax,-flto)
@@ -129,7 +129,7 @@ set(CXX_MINSIZEREL_FLAGS
     ${CXX_CORTEX_SPECIFIC_FLAGS}
     -Wno-c++14-compat
     -Os
-    -g
+    -g3
     -DNDEBUG
     -flto
     -Wl,--as-needed,--relax,-flto)
