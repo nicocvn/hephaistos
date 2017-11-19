@@ -13,7 +13,7 @@
 # ---------------------------------------------------------------------------- #
 
 # CMake minimum version.
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.8)
 
 set(_HephaistosDir ${CMAKE_CURRENT_LIST_DIR})
 

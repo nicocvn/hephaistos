@@ -136,7 +136,6 @@ set(CXX_MINSIZEREL_FLAGS
     -DNDEBUG
     -march=native
     -mfpmath=sse
-    # -fno-exceptions       We maintain exceptions for desktop builds.
     -fno-rtti
     # -flto
     -ffunction-sections

@@ -32,7 +32,7 @@
 
 
 # CMake minimum version and dependencies.
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.8)
 include(CMakeParseArguments)
 
 

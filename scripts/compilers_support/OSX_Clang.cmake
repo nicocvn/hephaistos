@@ -11,7 +11,7 @@
 #   Address sanitizer enabled for debug builds.
 #   C++14 disabled.
 #   MinSizeRel relies on LTO and OS X dead strip to minimize binary size.
-#   For MinSizeRel exceptions and RTTI are disabled.
+#   For MinSizeRel RTTI is disabled.
 #
 # ---------------------------------------------------------------------------- #
 
@@ -126,7 +126,6 @@ set(CXX_MINSIZEREL_FLAGS
     -DNDEBUG
     -march=native
     -mfpmath=sse
-    -fno-exceptions
     -fno-rtti
     -flto
     -ffunction-sections

@@ -76,6 +76,7 @@ endif (EXISTS ${GCC_PATH}gcc-nm-${GCC_VER})
 
 # We do not overwrite the AR and RANLIB commands for OS X. This creates issues
 # with plugins (i.e., LTO).
+# This mainly is because Clang will provide the linking stage.
 # if (EXISTS ${GCC_PATH}gcc-ar-${GCC_VER})
 #     set(CMAKE_AR ${GCC_PATH}gcc-ar-${GCC_VER}
 #         CACHE FILEPATH "Toolchain ar command" FORCE)
