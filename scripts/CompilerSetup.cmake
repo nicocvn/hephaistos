@@ -7,7 +7,7 @@
 #
 # MODULE:   Hephaistos
 #
-# PROVIDES:m
+# PROVIDES:
 #
 #   heph_compiler_setup([QUIET])
 #

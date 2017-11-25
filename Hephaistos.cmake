@@ -12,9 +12,11 @@
 #
 # ---------------------------------------------------------------------------- #
 
+
 # CMake minimum version.
 cmake_minimum_required(VERSION 3.8)
 
+# Current file location.
 set(_HephaistosDir ${CMAKE_CURRENT_LIST_DIR})
 
 # Load scripts.
