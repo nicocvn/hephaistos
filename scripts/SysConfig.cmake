@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# CMake Hephaistos::CompilerSetup
+# CMake Hephaistos::SysConfig
 #
 # Nicolas Clauvelin (n.clauvelin+code@gmail.com)
 # nicocvn.com, 2017
@@ -57,14 +57,20 @@ function(heph_platform_id)
     # Unix.
     if (APPLE)
         set(${PARSED_ARGS_PLATFORM} "macOS" PARENT_SCOPE)
+        message(STATUS
+                "HEPHAISTOS:: platform identified as macOS")
         return ()
     endif ()
     if (WIN32)
         set(${PARSED_ARGS_PLATFORM} "Windows" PARENT_SCOPE)
+        message(STATUS
+                "HEPHAISTOS:: platform identified as Windows")
         return ()
     endif ()
     if (UNIX)
         set(${PARSED_ARGS_PLATFORM} "Unix" PARENT_SCOPE)
+        message(STATUS
+                "HEPHAISTOS:: platform identified as Unix")
         return ()
     endif ()
 
@@ -72,6 +78,8 @@ function(heph_platform_id)
     if (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "arm"
         AND ${CMAKE_SYSTEM_NAME} STREQUAL "Generic")
         set(${PARSED_ARGS_PLATFORM} "arm_bare" PARENT_SCOPE)
+        message(STATUS
+                "HEPHAISTOS:: platform identified as arm_bare")
         return ()
     endif ()
 
@@ -103,20 +111,25 @@ function(heph_compiler_id)
                 "heph_check_compiler COMPILER argument is missing")
     endif ()
 
-    # We now test the various platforms:
-    # https://cmake.org/Wiki/CMake_Checking_Platform
+    # We now test the various compilers.
     if (${CMAKE_CXX_COMPILER_ID} MATCHES "Clang" AND
         ${CMAKE_C_COMPILER_ID} MATCHES "Clang")
         set(${PARSED_ARGS_COMPILER} "Clang" PARENT_SCOPE)
+        message(STATUS
+                "HEPHAISTOS:: compiler identified as Clang")
         return ()
     endif ()
     if (${CMAKE_CXX_COMPILER_ID} MATCHES "GNU" AND
         ${CMAKE_C_COMPILER_ID} MATCHES "GNU")
         set(${PARSED_ARGS_COMPILER} "GCC" PARENT_SCOPE)
+        message(STATUS
+                "HEPHAISTOS:: compiler identified as GCC")
         return ()
     endif ()
     if (MSVC)
         set(${PARSED_ARGS_COMPILER} "MSVC" PARENT_SCOPE)
+        message(STATUS
+                "HEPHAISTOS:: compiler identified as MSVC")
         return ()
     endif ()
 

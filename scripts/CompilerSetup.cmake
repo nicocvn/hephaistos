@@ -33,7 +33,7 @@
 
 # CMake minimum version and dependencies.
 cmake_minimum_required(VERSION 3.8)
-include(CMakeParseArguments)
+include(SysConfig.cmake)
 
 
 # Store script location.
@@ -54,80 +54,81 @@ function(heph_setup_compiler)
                           "${oneValueArgs}"
                           "${multiValueArgs}" ${ARGN})
 
-    # The first step is to identify the platform and possibly the compiler.
-    # For regular operating systems it is rather easy; for embedded platforms
-    # we check the processor type.
-    set(IS_UNIX FALSE)
-    set(IS_OSX FALSE)
-    set(IS_WINDOWS FALSE)
-    set(IS_ARM_BM FALSE)
-    set(IS_C2000_BM FALSE)
-    if (UNIX AND NOT APPLE) # OS X is an Unix so we discriminate here.
-        set(IS_UNIX TRUE)
-        set(IS_OSX FALSE)
-    endif ()
-    if (APPLE)
-        set(IS_UNIX FALSE)
-        set(IS_OSX TRUE)
-    endif ()
-    if (WIN32)
-        set(IS_WINDOWS TRUE)
-    endif ()
-    if (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "arm")
-        set(IS_ARM_BM TRUE)
-    endif ()
-    if (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "C2000")
-        set(IS_C2000_BM TRUE)
-    endif ()
+    # Get platform and compiler ids.
+    set(PlatformIdentity "")
+    set(CompilerIdentity "")
+    heph_platform_id(PLATFORM PlatformIdentity)
+    heph_compiler_id(PLATFORM CompilerIdentity)
 
-    # Compiler identification.
-    set(IS_GCC FALSE)
-    set(IS_CLANG FALSE)
-    set(IS_MSVC FALSE)
-    if (${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU" AND
-        ${CMAKE_C_COMPILER_ID} STREQUAL "GNU")
-        set(IS_GCC TRUE)
-    endif ()
-    if (${CMAKE_CXX_COMPILER_ID} MATCHES "Clang" AND
-        ${CMAKE_C_COMPILER_ID} MATCHES "Clang")
-        set(IS_CLANG TRUE)
-    endif ()
-    if (MSVC)
-        set(IS_MSVC TRUE)
-    endif ()
+    # # The first step is to identify the platform and possibly the compiler.
+    # # For regular operating systems it is rather easy; for embedded platforms
+    # # we check the processor type.
+    # set(IS_UNIX FALSE)
+    # set(IS_OSX FALSE)
+    # set(IS_WINDOWS FALSE)
+    # set(IS_ARM_BM FALSE)
+    # set(IS_C2000_BM FALSE)
+    # if (UNIX AND NOT APPLE) # OS X is an Unix so we discriminate here.
+    #     set(IS_UNIX TRUE)
+    #     set(IS_OSX FALSE)
+    # endif ()
+    # if (APPLE)
+    #     set(IS_UNIX FALSE)
+    #     set(IS_OSX TRUE)
+    # endif ()
+    # if (WIN32)
+    #     set(IS_WINDOWS TRUE)
+    # endif ()
+    # if (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "arm")
+    #     set(IS_ARM_BM TRUE)
+    # endif ()
+    # if (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "C2000")
+    #     set(IS_C2000_BM TRUE)
+    # endif ()
+
+    # # Compiler identification.
+    # set(IS_GCC FALSE)
+    # set(IS_CLANG FALSE)
+    # set(IS_MSVC FALSE)
+    # if (${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU" AND
+    #     ${CMAKE_C_COMPILER_ID} STREQUAL "GNU")
+    #     set(IS_GCC TRUE)
+    # endif ()
+    # if (${CMAKE_CXX_COMPILER_ID} MATCHES "Clang" AND
+    #     ${CMAKE_C_COMPILER_ID} MATCHES "Clang")
+    #     set(IS_CLANG TRUE)
+    # endif ()
+    # if (MSVC)
+    #     set(IS_MSVC TRUE)
+    # endif ()
 
     # Below we load the corresponding compiler flags.
 
-    # Linux / GCC flags.
+    # Unix / GCC flags.
     # If the compiler is not GCC we do not touch anything.
-    if (IS_UNIX AND IS_GCC)
-        if (NOT COMPSET_ARGS_QUIET)
-            message(STATUS
-                    "HEPHAISTOS:: Loading compiler flags for Linux/Unix + GCC")
-        endif ()
+    if (${PlatformIdentity} STREQUAL "Unix"
+        AND ${CompilerIdentity} STREQUAL "GCC")
+        message(STATUS
+                "HEPHAISTOS:: Loading compiler flags for Unix + GCC")
         include(${_CompilerSetupDir}/compilers_support/LinuxUnix_GCC.cmake)
         return()
     endif ()
 
-    # OS X.
-    if (IS_OSX)
+    # macOS.
+    if (${PlatformIdentity} STREQUAL "macOS")
 
         # GCC compiler.
-        if (IS_GCC)
-            if (NOT COMPSET_ARGS_QUIET)
-                message(STATUS
-                        "HEPHAISTOS:: Loading compiler flags for OSX + GCC")
-            endif ()
+        if (${CompilerIdentity} STREQUAL "GCC")
+            message(STATUS
+                    "HEPHAISTOS:: Loading compiler flags for macOS + GCC")
             include(${_CompilerSetupDir}/compilers_support/OSX_GCC.cmake)
             return()
         endif ()
 
         # Clang compiler.
-        if (IS_CLANG)
-            if (NOT COMPSET_ARGS_QUIET)
-                message(STATUS
-                        "HEPHAISTOS:: Loading compiler flags for OSX + Clang")
-            endif ()
+        if (${CompilerIdentity} STREQUAL "Clang")
+            message(STATUS
+                    "HEPHAISTOS:: Loading compiler flags for macOS + Clang")
             include(${_CompilerSetupDir}/compilers_support/OSX_Clang.cmake)
             return()
         endif ()
