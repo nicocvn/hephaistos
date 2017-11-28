@@ -1,10 +1,9 @@
 # Hephaistos #
-Copyright Nicolas Clauvelin, 2017. All rights reserved ([LICENSE](LICENSE)).  
-[Nicolas Clauvelin](mailto:nclauvelin@sendyne.com)  
+Copyright Nicolas Clauvelin, 2017. All rights reserved ([LICENSE](LICENSE)).
 
 
 ## Motivation ##
-Setting up project in [CMake], and therefore in [CLion], can be a bit cumbersome. This project is an effort to provide some basic commands to facilitate project setup in [CMake] and [CLion].
+Setting up project in [CMake] can be a bit cumbersome, especially when dealing with custom toolchains. In addition, the project setup does not vary much between projects. This project is an effort to provide some basic functionalities to facilitate project setup in [CMake]. By design, the implementation is usable on [CLion].
 
 Most of my personal programing projects are usually cross-platform or sometimes designed for a specific hardware (usually embedded). [CMake] therefore seems like a good choice as it provides:
 
@@ -12,10 +11,14 @@ Most of my personal programing projects are usually cross-platform or sometimes 
 * cross-platform support for project configuration, build and install steps,
 * can be used as the project format in [CLion].
 
-This project was originally developed for personal projects and then got sanitized to be used in production at Sendyne.
+This project was originally developed for personal projects and then got sanitized to be used in production at Sendyne Corp.
 
 
-## Module description ##
+## Project description ##
+The project is a collection of [CMake] scripts grouped into a module named Hephaistos. In order to use the module, it is sufficient to include the main script [Hephaistos.cmake](Hephaistos.cmake).
+
+
+## Features ##
 The `Hephaistos` [CMake] module provides the following functionalities:
 
 * support for various toolchains using the [heph_setup_toolchain] command (including embedded toolchains GCC ARM and TI C2000),
