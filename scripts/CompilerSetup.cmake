@@ -33,7 +33,7 @@
 
 # CMake minimum version and dependencies.
 cmake_minimum_required(VERSION 3.8)
-include(SysConfig.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/SysConfig.cmake)
 
 
 # Store script location.
@@ -43,22 +43,11 @@ set(_CompilerSetupDir "${CMAKE_CURRENT_LIST_DIR}")
 # Compiler setup function.
 function(heph_setup_compiler)
 
-    # Define function interface.
-    set(options)                            # None.
-    set(oneValueArgs "")                    # None.
-    set(multiValueArgs "")                  # None.
-
-    # Parse arguments.
-    cmake_parse_arguments(COMPSET_ARGS
-                          "${options}"
-                          "${oneValueArgs}"
-                          "${multiValueArgs}" ${ARGN})
-
     # Get platform and compiler ids.
     set(PlatformIdentity "")
     set(CompilerIdentity "")
     heph_platform_id(PLATFORM PlatformIdentity)
-    heph_compiler_id(PLATFORM CompilerIdentity)
+    heph_compiler_id(COMPILER CompilerIdentity)
 
     # Below we load the corresponding compiler flags.
 
