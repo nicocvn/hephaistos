@@ -16,9 +16,9 @@
 #
 #       The following setups are currently supported:
 #           PLATFORM            COMPILER
-#           Linux/Unix          GCC (requires a recent version >5)
-#           OS X                Clang, GCC (recent version required >5)
-#           Windows             MSVC, GCC (using MinGW64)
+#           Unix                GCC (requires a recent version >= 6)
+#           OS X                Clang, GCC (recent version required >= 6)
+#           Windows             MSVC, GCC (e.g., using MinGW64)
 #           ARM bare metal      GCC
 #           C2000 bare metal    TI CGT
 #
@@ -44,7 +44,7 @@ set(_CompilerSetupDir "${CMAKE_CURRENT_LIST_DIR}")
 function(heph_setup_compiler)
 
     # Define function interface.
-    set(options QUIET)                      # Options.
+    set(options)                            # None.
     set(oneValueArgs "")                    # None.
     set(multiValueArgs "")                  # None.
 
@@ -59,48 +59,6 @@ function(heph_setup_compiler)
     set(CompilerIdentity "")
     heph_platform_id(PLATFORM PlatformIdentity)
     heph_compiler_id(PLATFORM CompilerIdentity)
-
-    # # The first step is to identify the platform and possibly the compiler.
-    # # For regular operating systems it is rather easy; for embedded platforms
-    # # we check the processor type.
-    # set(IS_UNIX FALSE)
-    # set(IS_OSX FALSE)
-    # set(IS_WINDOWS FALSE)
-    # set(IS_ARM_BM FALSE)
-    # set(IS_C2000_BM FALSE)
-    # if (UNIX AND NOT APPLE) # OS X is an Unix so we discriminate here.
-    #     set(IS_UNIX TRUE)
-    #     set(IS_OSX FALSE)
-    # endif ()
-    # if (APPLE)
-    #     set(IS_UNIX FALSE)
-    #     set(IS_OSX TRUE)
-    # endif ()
-    # if (WIN32)
-    #     set(IS_WINDOWS TRUE)
-    # endif ()
-    # if (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "arm")
-    #     set(IS_ARM_BM TRUE)
-    # endif ()
-    # if (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "C2000")
-    #     set(IS_C2000_BM TRUE)
-    # endif ()
-
-    # # Compiler identification.
-    # set(IS_GCC FALSE)
-    # set(IS_CLANG FALSE)
-    # set(IS_MSVC FALSE)
-    # if (${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU" AND
-    #     ${CMAKE_C_COMPILER_ID} STREQUAL "GNU")
-    #     set(IS_GCC TRUE)
-    # endif ()
-    # if (${CMAKE_CXX_COMPILER_ID} MATCHES "Clang" AND
-    #     ${CMAKE_C_COMPILER_ID} MATCHES "Clang")
-    #     set(IS_CLANG TRUE)
-    # endif ()
-    # if (MSVC)
-    #     set(IS_MSVC TRUE)
-    # endif ()
 
     # Below we load the corresponding compiler flags.
 
@@ -136,24 +94,20 @@ function(heph_setup_compiler)
     endif ()
 
     # Windows.
-    if (IS_WINDOWS)
+    if (${PlatformIdentity} STREQUAL "Windows")
 
         # MSVC.
-        if (IS_MSVC)
-            if (NOT COMPSET_ARGS_QUIET)
-                message(STATUS
-                        "HEPHAISTOS:: Loading compiler flags for Windows + MSVC")
-            endif ()
+        if (${CompilerIdentity} STREQUAL "MSVC")
+            message(STATUS
+                    "HEPHAISTOS:: Loading compiler flags for Windows + MSVC")
             include(${_CompilerSetupDir}/compilers_support/Windows_MSVC.cmake)
             return()
         endif ()
 
         # GCC.
-        if (IS_GCC)
-            if (NOT COMPSET_ARGS_QUIET)
-                message(STATUS
-                        "HEPHAISTOS:: Loading compiler flags for Windows + GCC")
-            endif ()
+        if (${CompilerIdentity} STREQUAL "GCC")
+            message(STATUS
+                    "HEPHAISTOS:: Loading compiler flags for Windows + GCC")
             include(${_CompilerSetupDir}/compilers_support/Windows_GCC.cmake)
             return()
         endif ()
@@ -161,18 +115,18 @@ function(heph_setup_compiler)
     endif ()
 
     # ARM bare metal.
-    if (IS_ARM_BM)
+    if (${PlatformIdentity} STREQUAL "arm_bare")
+
+        # Hardware specifics flags
         set(ARM_CORTEX ${ARGV})
-        if (NOT COMPSET_ARGS_QUIET)
-            message(STATUS
-                    "HEPHAISTOS:: Loading compiler flags for ARM + GCC")
-            message(STATUS
-                "HEPHAISTOS:: ${ARM_CORTEX}")
-        endif ()
         if (${ARM_CORTEX} STREQUAL "")
             message(FATAL_ERROR
                     "HEPHAISTOS:: For ARM+GCC the CPU type is required to be defined by the ARM_CORTEX option")
         endif ()
+        message(STATUS
+                "HEPHAISTOS:: Loading compiler flags for ARM + GCC")
+        message(STATUS
+            "HEPHAISTOS:: ${ARM_CORTEX}")
         if ("${ARM_CORTEX}" STREQUAL "M4")
             message(STATUS "HEPHAISTOS:: Using ARM Cortex-M4 flags")
             include(${_CompilerSetupDir}/compilers_support/ARM_GCC_Cortex-M4.cmake)
@@ -183,24 +137,23 @@ function(heph_setup_compiler)
             message(FATAL_ERROR
                     "HEPHAISTOS:: ARM_CORTEX invalid value")
         endif ()
+
+        # Generic GCC ARM flags.
         include(${_CompilerSetupDir}/compilers_support/ARM_GCC.cmake)
         return()
+        
     endif ()
 
     # C2000 bare metal.
-    if (IS_C2000_BM)
-        if (NOT COMPSET_ARGS_QUIET)
-            message(STATUS
-                    "HEPHAISTOS:: Loading compiler flags for C2000")
-        endif ()
-        include(${_CompilerSetupDir}/compilers_support/C2000.cmake)
-        return()
-    endif ()
+    # if (IS_C2000_BM)
+    #         message(STATUS
+    #                 "HEPHAISTOS:: Loading compiler flags for C2000")
+    #     include(${_CompilerSetupDir}/compilers_support/C2000.cmake)
+    #     return()
+    # endif ()
 
     # Default.
-    if (NOT COMPSET_ARGS_QUIET)
-        message(STATUS
-                "HEPHAISTOS:: Using default compiler flags")
-    endif ()
+    message(STATUS
+            "HEPHAISTOS:: Using default compiler flags")
 
 endfunction()
