@@ -21,9 +21,9 @@ The project is a collection of [CMake] scripts grouped into a module named Hepha
 ## Features ##
 The `Hephaistos` [CMake] module provides the following functionalities:
 
-* support for various toolchains using the [heph_setup_toolchain] command (including embedded toolchains GCC ARM and TI C2000),
+* support for various toolchains using the [heph_setup_toolchain] command,
 * the [heph_setup_project_tree] command to set up the various project directories used for compiling, building, and installing the project,
-* a [heph_setup_compiler] command to adjust compiler settings for various setups (`Debug`, `Release`, `RelWithDebInfo`, `MinSizeRel`).
+* a [heph_setup_compiler] command to adjust compiler settings for various setups (`Debug`, `Release`, `RelWithDebInfo`, and `MinSizeRel`).
 
 All those commands will report status information when [CMake] is going through the configuration stage.
 
@@ -38,22 +38,28 @@ The script [ToolchainManager.cmake](scripts/ToolchainManager.cmake) provides two
 * `heph_setup_toolchain([TOOLCHAIN ToolchainID])`: if `ToolchainID` is not specified this will use the default toolchain identified by [CMake] during the configure step,
 * `heph_toolchain_diagnostic()`: this command outputs the details of the toolchain configuration.
 
-The table below sums up the supported toolchains:
+The table below lists the supported toolchains:
 
 | Platform | Toolchain | Supported | Comment                                |
 | -------- | --------- | :-: | -------------------------------------------- |
-| Windows  | MSVC      | NO  | use [CMake] GUI (see [boilerplate] wiki)     |
-| Windows  | MinGW-w64 | YES | supported through [CLion]; no ID required    |
-| Linux    | GCC       | YES | supported by default; (see note below)       |
-| OS X     | Clang     | YES | supported by default; no ID required         |
-| OS X     | GCC       | YES | requires homebrew; use `GCC_OSX_HOMEBREW` ID |
-| ARM      | GCC       | YES | use `GCC_ARM_BAREMETAL` ID                   |
-| TI C2000 | TI CGT    | YES | use `TI_C2000` ID                            |
+| Windows  | MSVC      | YES | supported through generator                  |
+| Windows  | MinGW-w64 | YES | supported through `CMAKE_C/CXX_COMPILER`     |
+| Linux    | GCC       | YES | supported by default (see note below)        |
+| OS X     | Clang     | YES | supported by default                         |
+| OS X     | GCC       | YES | `GCC_OSX_HOMEBREW` ID (requires hombrew)     |
+| ARM      | GCC       | YES | `GCC_ARM_BAREMETAL` ID                       |
+| TI C2000 | TI CGT    | YES | `TI_C2000` ID                                |
 
-The TI C2000 toolchain support is somewhat still experimental.
+The TI C2000 toolchain support is somewhat experimental.
 
 ### Note on Linux support ###
 Most Linux distributions are still providing *old* GCC versions (for example, GCC-4.X or GCC-5.X). In order to simplify support for modern versions, the toolchain ID `GCC_LINUX_RECENT` should be used to enforce GCC-6.X or GCC-7.X usage. It is strongly recommended to use this toolchain for any Linux projects.
+
+### Note on GCC ARM toolchain ###
+This toolchain requires the variable `ARM_TC_PATH` to be set to the root of the toolchain installation.
+
+### Note on TI C2000 toolchain ###
+This toolchain requires the variable `ARM_TC_PATH` to be set to the root of the toolchain installation.
 
 
 ## heph_setup_project_tree ##
@@ -83,9 +89,12 @@ The supported configurations are (click on the links to see details):
 * [Linux/Unix + GCC](scripts/compilers_support/LinuxUnix_GCC.cmake)
 * [OSX + Clang](scripts/compilers_support/OSX_Clang.cmake)
 * [OSX + GCC](scripts/compilers_support/OSX_GCC.cmake)
+* [GCC ARM bare metal](scripts/compilers_support/ARM_GCC.cmake): this will set the compiler for bare metal builds
 * [TI C2000](scripts/compilers_support/C2000.cmake): this will set the compiler for bare metal builds
 
 Note that, compiler flags for GCC on Linux and Unix platforms are functional for recent GCC versions. It is recommended to use the `GCC_LINUX_RECENT` toolchain ID to enforce this usage.
+
+The compiler will be identified based on the toolchain setup. The platform identification relies on the system description. For bare metal projects (ARM or TI C2000) it is required to configure the toolchain using [heph_setup_toolchain].
 
 ### GCC ARM compiler ###
 When using the GCC ARM toolchain for embedded projects, the compiler setup command requires the type of ARM hardware to be explicitly specified. This is used by the script to properly define compiler flags for hardware support (*e.g.*, FPU).

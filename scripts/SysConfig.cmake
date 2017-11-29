@@ -11,8 +11,31 @@
 #
 #   hep_platform_id(PLATFORM [variable])
 #
+#       This function is used to identify the platform and returns in variable a
+#       string indicating the identified platform.
+#       The possible values are:
+#           "macOS"             macOS and Darwin-based systems
+#           "Windows"           Windows systems (all versions)
+#           "Unix"              Linux and Unix-like systems
+#           "arm_bare"          ARM bare metal systems
+#
+#       If the platform cannot be identified an empty string is returned and a
+#       non-blocking error is raised.
+#
 #   hep_compiler_id(COMPILER [variable])
 #
+#       This function is used to identify the compiler being used and returns in
+#       variable a string indicating the identified platform.
+#       The possible values are:
+#           "Clang"             Clang compilers
+#           "GCC"               GCC compilers
+#           "MSVC"              MSVC compilers (i.e., Visual Studio)
+#
+#       If the compiler cannot be identified an empty string is returned and a
+#       non-blocking error is raised.
+#
+#   Both these functions will leverage the setup performed by the toolchain
+#   manager script.
 #
 # ---------------------------------------------------------------------------- #
 
@@ -83,6 +106,8 @@ function(heph_platform_id)
         return ()
     endif ()
 
+    message(SEND_ERROR "HEPHAISTOS:: platform unknown")
+
 endfunction()
 
 
@@ -132,5 +157,7 @@ function(heph_compiler_id)
                 "HEPHAISTOS:: compiler identified as MSVC")
         return ()
     endif ()
+
+    message(SEND_ERROR "HEPHAISTOS:: compiler unknown")
 
 endfunction()
