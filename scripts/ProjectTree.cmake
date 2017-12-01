@@ -123,10 +123,8 @@ function(heph_setup_project_tree)
         get_filename_component(INSTALL_DIR_FULL ${PT_ARGS_PROJ_INSTALL_DIR}
                                ABSOLUTE CACHE)
         set(CMAKE_INSTALL_PREFIX
-            "${INSTALL_DIR_FULL}/${CMAKE_BUILD_TYPE}"
+            "${INSTALL_DIR_FULL}"
             CACHE PATH "Install location." FORCE)
-        # set(CMAKE_INSTALL_PREFIX "${INSTALL_DIR_FULL}/${CMAKE_BUILD_TYPE}"
-        #     PARENT_SCOPE)
     else () # PT_ARGS_PROJ_INSTALL_DIR
         set(CMAKE_INSTALL_PREFIX 
             "${CMAKE_SOURCE_DIR}/install/${CMAKE_BUILD_TYPE}"
