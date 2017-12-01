@@ -41,11 +41,11 @@ else ()
     set(GCC_VER 6)
 endif ()
 
-# Force to GCC-6 because of numerous bugs in GCC-7.
-message(STATUS
-        "HEPHAISTOS:: Force gcc-6; gcc-7 not production ready at the moment")
-set(GCC_PATH "${LINUX_GCC_6}/")
-set(GCC_VER 6)
+# # Force to GCC-6 because of numerous bugs in GCC-7.
+# message(STATUS
+#         "HEPHAISTOS:: Force gcc-6; gcc-7 not production ready at the moment")
+# set(GCC_PATH "${LINUX_GCC_6}/")
+# set(GCC_VER 6)
 
 # Compilers.
 # Those values are automatically added to CACHE.

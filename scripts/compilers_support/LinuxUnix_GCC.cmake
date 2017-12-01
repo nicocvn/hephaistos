@@ -13,8 +13,6 @@
 #   MinSizeRel relies on data-sections and such to reduce sizing.
 #   For MinSizeRel exceptions and RTTI are disabled.
 #   This requires a recent GCC support (see GCC_LINUX_RECENT toolchain).
-#   Note that, LTO is disabled as it seems that as of today it causes numerous
-#   issues on Linux (... this is somewhat worrisome).
 #
 # ---------------------------------------------------------------------------- #
 
@@ -71,9 +69,9 @@ set(C_RELEASE_FLAGS
     -O2
     -DNDEBUG
     -march=native
-    -mfpmath=sse)
-    # -flto
-    # -Wl,-flto)
+    -mfpmath=sse
+    -flto
+    -Wl,-flto)
 
 # C++ release flags.
 set(CXX_RELEASE_FLAGS
@@ -82,9 +80,9 @@ set(CXX_RELEASE_FLAGS
     -O2
     -DNDEBUG
     -march=native
-    -mfpmath=sse)
-    # -flto
-    # -Wl,-flto)
+    -mfpmath=sse
+    -flto
+    -Wl,-flto)
 
 
 # --- RelWithDebInfo flags ---
@@ -96,7 +94,9 @@ set(C_RELWITHDEBINFO_FLAGS
     -g
     -DNDEBUG
     -march=native
-    -mfpmath=sse)
+    -mfpmath=sse
+    -flto
+    -Wl,-flto)
 
 # C++ release with debug info flags.
 set(CXX_RELWITHDEBINFO_FLAGS
@@ -106,7 +106,9 @@ set(CXX_RELWITHDEBINFO_FLAGS
     -g
     -DNDEBUG
     -march=native
-    -mfpmath=sse)
+    -mfpmath=sse
+    -flto
+    -Wl,-flto)
 
 
 # --- MinSizeRel flags ---
@@ -121,12 +123,11 @@ set(C_MINSIZEREL_FLAGS
     -DNDEBUG
     -march=native
     -mfpmath=sse
-    # -flto
+    -flto
     -ffunction-sections
     -fdata-sections
     -s
-    -Wl,--gc-sections,-s,--as-needed,--relax)
-    # -Wl,--gc-sections,-s,--as-needed,--relax,-flto)
+    -Wl,--gc-sections,-s,--as-needed,--relax,-flto)
 
 # C++ minimal size release flags.
 set(CXX_MINSIZEREL_FLAGS
@@ -137,12 +138,11 @@ set(CXX_MINSIZEREL_FLAGS
     -march=native
     -mfpmath=sse
     -fno-rtti
-    # -flto
+    -flto
     -ffunction-sections
     -fdata-sections
     -s
-    -Wl,--gc-sections,-s,--as-needed,--relax)
-    # -Wl,--gc-sections,-s,--as-needed,--relax,-flto)
+    -Wl,--gc-sections,-s,--as-needed,--relax,-flto)
 
 
 # --- Compiler flags setup ---
