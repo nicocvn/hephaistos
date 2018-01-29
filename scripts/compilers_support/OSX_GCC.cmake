@@ -39,7 +39,8 @@ set(C_DEBUG_FLAGS
     -Wno-unused-parameter
     -Wuninitialized
     -Wconversion
-    -fno-omit-frame-pointer)
+    -fno-omit-frame-pointer
+    -fexceptions)
 
 # C++ debug flags.
 set(CXX_DEBUG_FLAGS
@@ -67,7 +68,8 @@ set(C_RELEASE_FLAGS
     -O2
     -DNDEBUG
     -march=native
-    -mfpmath=sse)
+    -mfpmath=sse
+    -fexceptions)
 
 # C++ release flags.
 set(CXX_RELEASE_FLAGS
@@ -88,7 +90,8 @@ set(C_RELWITHDEBINFO_FLAGS
     -g
     -DNDEBUG
     -march=native
-    -mfpmath=sse)
+    -mfpmath=sse
+    -fexceptions)
 
 # C++ release with debug info flags.
 set(CXX_RELWITHDEBINFO_FLAGS
@@ -113,6 +116,7 @@ set(C_MINSIZEREL_FLAGS
     -DNDEBUG
     -march=native
     -mfpmath=sse
+    -fexceptions
     -flto
     -ffunction-sections
     -fdata-sections
