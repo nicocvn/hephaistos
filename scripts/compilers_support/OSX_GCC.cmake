@@ -2,7 +2,7 @@
 # CMake Hephaistos::CompilerSetup OSX GCC compiler flags
 #
 # Nicolas Clauvelin (n.clauvelin+code@gmail.com)
-# nicocvn.com, 2017
+# nicocvn.com, 2018
 #
 #
 # DESCRIPTION:
@@ -34,13 +34,15 @@ set(C_DEBUG_FLAGS
     -Wextra
     -Wunused-value
     -Wunused
+    -Wno-unused-parameter
+    -Wunused-result
     -Wmissing-declarations
     -Wmissing-include-dirs
-    -Wno-unused-parameter
     -Wuninitialized
     -Wconversion
     -fno-omit-frame-pointer
-    -fexceptions)
+    -fexceptions
+    -Werror=return-type)
 
 # C++ debug flags.
 set(CXX_DEBUG_FLAGS
@@ -50,14 +52,16 @@ set(CXX_DEBUG_FLAGS
     -Wextra
     -Wunused-value
     -Wunused
+    -Wno-unused-parameter
+    -Wunused-result
     -Wmissing-declarations
     -Wmissing-include-dirs
-    -Wno-unused-parameter
     -Wuninitialized
     -Wconversion
     -Wno-c++14-compat
     -fno-omit-frame-pointer
-    -Weffc++)
+    -Weffc++
+    -Werror=return-type)
 
 
 # --- Release flags ---
@@ -87,7 +91,7 @@ set(CXX_RELEASE_FLAGS
 set(C_RELWITHDEBINFO_FLAGS
     -fvisibility=hidden
     -O2
-    -g
+    -g3
     -DNDEBUG
     -march=native
     -mfpmath=sse
@@ -98,16 +102,13 @@ set(CXX_RELWITHDEBINFO_FLAGS
     -fvisibility=hidden
     -Wno-c++14-compat
     -O2
-    -g
+    -g3
     -DNDEBUG
     -march=native
     -mfpmath=sse)
 
 
 # --- MinSizeRel flags ---
-
-# Note that, GCC does not seem efficient at producing small size on OS X.
-# Mostly because it relies on OS X internal linker.
 
 # C minimal size release flags.
 set(C_MINSIZEREL_FLAGS
@@ -130,8 +131,8 @@ set(CXX_MINSIZEREL_FLAGS
     -DNDEBUG
     -march=native
     -mfpmath=sse
-    -flto
     -fno-rtti
+    -flto
     -ffunction-sections
     -fdata-sections
     -Wl,-flto,-dead_strip)
