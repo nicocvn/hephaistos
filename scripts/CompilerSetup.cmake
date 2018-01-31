@@ -40,6 +40,10 @@ include(${CMAKE_CURRENT_LIST_DIR}/SysConfig.cmake)
 set(_CompilerSetupDir "${CMAKE_CURRENT_LIST_DIR}")
 
 
+# Reporting function for compiler setup.
+
+
+
 # Compiler setup function.
 function(heph_setup_compiler)
 

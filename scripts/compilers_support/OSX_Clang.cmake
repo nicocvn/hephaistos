@@ -15,6 +15,7 @@
 #   * Release and RelWithDebInfo use O2.
 #   * Release, RelWithDebInfo, and MinSizeRel use march=native and mfpmath=sse.
 #   * For Debug, Wall, Wextra, Weff-c++ and a few others are enabled.
+#   * For Debug, sanitizers for address and undefined are enabled.
 #
 # ---------------------------------------------------------------------------- #
 
@@ -32,6 +33,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED TRUE PARENT_SCOPE)
 set(C_DEBUG_FLAGS
     -fvisibility=hidden
     -g3
+    -fno-omit-frame-pointer
+    -fexceptions
+    # Warnings.
     -Wall
     -Wextra
     -Wunused-value
@@ -42,15 +46,18 @@ set(C_DEBUG_FLAGS
     -Wmissing-include-dirs
     -Wuninitialized
     -Wconversion
+    -Wreturn-type
+    # Sanitizer
     -fsanitize=address
-    -fno-omit-frame-pointer
-    -fexceptions
-    -Werror=return-type)
+    -fsanitize=undefined)
 
 # C++ debug flags.
 set(CXX_DEBUG_FLAGS
     -fvisibility=hidden
     -g3
+    -fno-omit-frame-pointer
+    -fexceptions
+    # Warnings.
     -Wall
     -Wextra
     -Wunused-value
@@ -61,12 +68,13 @@ set(CXX_DEBUG_FLAGS
     -Wmissing-include-dirs
     -Wuninitialized
     -Wconversion
-    -fsanitize=address
-    -fno-omit-frame-pointer
+    -Wreturn-type
     -Weffc++
-    -Werror=return-type)
+    # Sanitizer
+    -fsanitize=address
+    -fsanitize=undefined)
 
-# Linker flags.
+# Debug linker flags.
 set(LINKER_DEBUG_FLAGS )
 
 
@@ -75,25 +83,31 @@ set(LINKER_DEBUG_FLAGS )
 # C release flags.
 set(C_RELEASE_FLAGS
     -fvisibility=hidden
-    -O2
-    -DNDEBUG
-    -flto
-    -ffunction-sections
-    -fdata-sections
+    -fexceptions
+    # Arch.
     -march=native
     -mfpmath=sse
-    -fexceptions)
+    # Optimization.
+    -O2
+    -DNDEBUG
+    # LTO.
+    -flto
+    -ffunction-sections
+    -fdata-sections)
 
 # C++ release flags.
 set(CXX_RELEASE_FLAGS
     -fvisibility=hidden
+    # Arch.
+    -march=native
+    -mfpmath=sse
+    # Optimization.
     -O2
     -DNDEBUG
+    # LTO.
     -flto
     -ffunction-sections
-    -fdata-sections
-    -march=native
-    -mfpmath=sse)
+    -fdata-sections)
 
 # Release linker flags.
 set(LINKER_RELEASE_FLAGS
@@ -105,21 +119,25 @@ set(LINKER_RELEASE_FLAGS
 # C release with debug info flags.
 set(C_RELWITHDEBINFO_FLAGS
     -fvisibility=hidden
-    -O2
-    -g3
-    -DNDEBUG
+    -fexceptions
+    # Arch.
     -march=native
     -mfpmath=sse
-    -fexceptions)
+    # Optimization with debug symbols.
+    -O2
+    -g3
+    -DNDEBUG)
 
 # C++ release flags.
 set(CXX_RELWITHDEBINFO_FLAGS
     -fvisibility=hidden
+    # Arch.
+    -march=native
+    -mfpmath=sse
+    # Optimization with debug symbols.
     -O2
     -g3
-    -DNDEBUG
-    -march=native
-    -mfpmath=sse)
+    -DNDEBUG)
 
 # Release with debug info linker flags.
 set(LINKER_RELWITHDEBINFO_FLAGS
@@ -128,17 +146,17 @@ set(LINKER_RELWITHDEBINFO_FLAGS
 
 # --- MinSizeRel flags ---
 
-# This seems to be enough to get Clang get a decent minimal size. Similar to
-# GCC visibility settings could be checked.
-
 # C minimal size release flags.
 set(C_MINSIZEREL_FLAGS
     -fvisibility=hidden
-    -Os
-    -DNDEBUG
+    -fexceptions
+    # Arch.
     -march=native
     -mfpmath=sse
-    -fexceptions
+    # Optimization.
+    -Os
+    -DNDEBUG
+    # LTO.
     -flto
     -ffunction-sections
     -fdata-sections)
@@ -146,11 +164,14 @@ set(C_MINSIZEREL_FLAGS
 # C++ minimal size release flags.
 set(CXX_MINSIZEREL_FLAGS
     -fvisibility=hidden
-    -Os
-    -DNDEBUG
+    -fno-rtti
+    # Arch.
     -march=native
     -mfpmath=sse
-    -fno-rtti
+    # Optimization.
+    -Os
+    -DNDEBUG
+    # LTO.
     -flto
     -ffunction-sections
     -fdata-sections)
