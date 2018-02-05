@@ -98,8 +98,8 @@ function(heph_platform_id)
     endif ()
 
     # We add a few more tests for bare metal platforms.
-    if (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "arm"
-        AND ${CMAKE_SYSTEM_NAME} STREQUAL "Generic")
+    if (CMAKE_SYSTEM_PROCESSOR STREQUAL "arm"
+        AND CMAKE_SYSTEM_NAME STREQUAL "Generic")
         set(${PARSED_ARGS_PLATFORM} "arm_bare" PARENT_SCOPE)
         message(STATUS
                 "HEPHAISTOS:: platform identified as arm_bare")
@@ -137,15 +137,15 @@ function(heph_compiler_id)
     endif ()
 
     # We now test the various compilers.
-    if (${CMAKE_CXX_COMPILER_ID} MATCHES "Clang" AND
-        ${CMAKE_C_COMPILER_ID} MATCHES "Clang")
+    if (CMAKE_CXX_COMPILER_ID MATCHES "Clang" AND
+        CMAKE_C_COMPILER_ID MATCHES "Clang")
         set(${PARSED_ARGS_COMPILER} "Clang" PARENT_SCOPE)
         message(STATUS
                 "HEPHAISTOS:: compiler identified as Clang")
         return ()
     endif ()
-    if (${CMAKE_CXX_COMPILER_ID} MATCHES "GNU" AND
-        ${CMAKE_C_COMPILER_ID} MATCHES "GNU")
+    if (CMAKE_CXX_COMPILER_ID MATCHES "GNU" AND
+        CMAKE_C_COMPILER_ID MATCHES "GNU")
         set(${PARSED_ARGS_COMPILER} "GCC" PARENT_SCOPE)
         message(STATUS
                 "HEPHAISTOS:: compiler identified as GCC")

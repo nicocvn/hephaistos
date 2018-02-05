@@ -56,8 +56,8 @@ function(heph_setup_compiler)
 
     # Unix / GCC flags.
     # If the compiler is not GCC we do not touch anything.
-    if (${PlatformIdentity} STREQUAL "Unix"
-        AND ${CompilerIdentity} STREQUAL "GCC")
+    if (PlatformIdentity STREQUAL "Unix"
+        AND CompilerIdentity STREQUAL "GCC")
         message(STATUS
                 "HEPHAISTOS:: Loading compiler flags for Unix + GCC")
         include(${_CompilerSetupDir}/compilers_support/LinuxUnix_GCC.cmake)
@@ -65,10 +65,10 @@ function(heph_setup_compiler)
     endif ()
 
     # macOS.
-    if (${PlatformIdentity} STREQUAL "macOS")
+    if (PlatformIdentity STREQUAL "macOS")
 
         # GCC compiler.
-        if (${CompilerIdentity} STREQUAL "GCC")
+        if (CompilerIdentity STREQUAL "GCC")
             message(STATUS
                     "HEPHAISTOS:: Loading compiler flags for macOS + GCC")
             include(${_CompilerSetupDir}/compilers_support/OSX_GCC.cmake)
@@ -76,7 +76,7 @@ function(heph_setup_compiler)
         endif ()
 
         # Clang compiler.
-        if (${CompilerIdentity} STREQUAL "Clang")
+        if (CompilerIdentity STREQUAL "Clang")
             message(STATUS
                     "HEPHAISTOS:: Loading compiler flags for macOS + Clang")
             include(${_CompilerSetupDir}/compilers_support/OSX_Clang.cmake)
@@ -86,10 +86,10 @@ function(heph_setup_compiler)
     endif ()
 
     # Windows.
-    if (${PlatformIdentity} STREQUAL "Windows")
+    if (PlatformIdentity STREQUAL "Windows")
 
         # MSVC.
-        if (${CompilerIdentity} STREQUAL "MSVC")
+        if (CompilerIdentity STREQUAL "MSVC")
             message(STATUS
                     "HEPHAISTOS:: Loading compiler flags for Windows + MSVC")
             include(${_CompilerSetupDir}/compilers_support/Windows_MSVC.cmake)
@@ -97,7 +97,7 @@ function(heph_setup_compiler)
         endif ()
 
         # GCC.
-        if (${CompilerIdentity} STREQUAL "GCC")
+        if (CompilerIdentity STREQUAL "GCC")
             message(STATUS
                     "HEPHAISTOS:: Loading compiler flags for Windows + GCC")
             include(${_CompilerSetupDir}/compilers_support/Windows_GCC.cmake)
@@ -107,11 +107,11 @@ function(heph_setup_compiler)
     endif ()
 
     # ARM bare metal.
-    if (${PlatformIdentity} STREQUAL "arm_bare")
+    if (PlatformIdentity STREQUAL "arm_bare")
 
         # Hardware specifics flags
         set(ARM_CORTEX ${ARGV})
-        if (${ARM_CORTEX} STREQUAL "")
+        if (ARM_CORTEX STREQUAL "")
             message(FATAL_ERROR
                     "HEPHAISTOS:: For ARM+GCC the CPU type is required to be defined by the ARM_CORTEX option")
         endif ()
@@ -119,10 +119,10 @@ function(heph_setup_compiler)
                 "HEPHAISTOS:: Loading compiler flags for ARM + GCC")
         message(STATUS
             "HEPHAISTOS:: ${ARM_CORTEX}")
-        if ("${ARM_CORTEX}" STREQUAL "M4")
+        if (ARM_CORTEX STREQUAL "M4")
             message(STATUS "HEPHAISTOS:: Using ARM Cortex-M4 flags")
             include(${_CompilerSetupDir}/compilers_support/ARM_GCC_Cortex-M4.cmake)
-        elseif ("${ARM_CORTEX}" STREQUAL "M0+")
+        elseif (ARM_CORTEX STREQUAL "M0+")
             message(STATUS "HEPHAISTOS:: Using ARM Cortex-M0+ flags")
             include(${_CompilerSetupDir}/compilers_support/ARM_GCC_Cortex-M0+.cmake)
         else ()
