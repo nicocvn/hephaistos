@@ -22,7 +22,6 @@
 #           GCC ARM for bare metal projects     GCC_ARM_BAREMETAL
 #           GCC on OS X using Homebrew          GCC_OSX_HOMEBREW
 #           GCC on Linux (recent versions)      GCC_LINUX_RECENT
-#           TI C2000 TOOLCHAIN                  TI_C2000
 #       The toolchain is set for C and C++.
 #
 #       If not toolchain ID is given this will used the default CMake
@@ -41,9 +40,6 @@
 #       --- GCC_ARM_BAREMETAL ---
 #       For the GCC ARM toolchain the path to the installation needs to be set
 #       in the variable ARM_TC_PATH.
-#
-#       --- TI_C2000 ---
-#       The variable TI_CGT_PATH needs to be set to the toolchain path.
 #
 # ---------------------------------------------------------------------------- #
 
@@ -155,17 +151,6 @@ function(heph_setup_toolchain)
         endif ()
         set(CMAKE_TOOLCHAIN_FILE
             "${_ToolchainManagerDir}/toolchains_support/GCC_LINUX_RECENT.cmake"
-            PARENT_SCOPE)
-        return ()
-    endif ()
-
-    # TI_C2000.
-    if (TCMGR_ARGS_TOOLCHAIN STREQUAL "TI_C2000")
-        if (NOT TCMGR_ARGS_QUIET)
-            message(STATUS "HEPHAISTOS:: Toolchain set to TI_C2000")
-        endif ()
-        set(CMAKE_TOOLCHAIN_FILE
-            "${_ToolchainManagerDir}/toolchains_support/TI_C2000.cmake"
             PARENT_SCOPE)
         return ()
     endif ()

@@ -20,7 +20,6 @@
 #           OS X                Clang, GCC (recent version required >= 6)
 #           Windows             MSVC, GCC (e.g., using MinGW64)
 #           ARM bare metal      GCC
-#           C2000 bare metal    TI CGT
 #
 #       Refer to the files in compilers_support/ for details about the flags.
 #
@@ -136,14 +135,6 @@ function(heph_setup_compiler)
         return()
         
     endif ()
-
-    # C2000 bare metal.
-    # if (IS_C2000_BM)
-    #         message(STATUS
-    #                 "HEPHAISTOS:: Loading compiler flags for C2000")
-    #     include(${_CompilerSetupDir}/compilers_support/C2000.cmake)
-    #     return()
-    # endif ()
 
     # Default.
     message(STATUS
