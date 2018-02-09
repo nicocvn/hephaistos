@@ -9,7 +9,7 @@
 #
 # PROVIDES:
 #
-#   heph_compiler_setup([QUIET])
+#   heph_compiler_setup([ARM_ARCH mcu_flavor])
 #
 #       This command sets the compiler flags for the various build types. It
 #       always enforce C++11 and C99 standards.
@@ -18,14 +18,13 @@
 #           PLATFORM            COMPILER
 #           Unix                GCC (requires a recent version >= 6)
 #           OS X                Clang, GCC (recent version required >= 6)
-#           Windows             MSVC, GCC (e.g., using MinGW64)
+#           Windows             MSVC, GCC (using MinGW64)
 #           ARM bare metal      GCC
 #
 #       Refer to the files in compilers_support/ for details about the flags.
 #
-#       For ARM setups, an additional argument is required to indicated the
-#       CPU type.
-#       Currently supported: M0+, M4
+#       For ARM setups, the argument ARM_ARCH should be set to one of:
+#       "M4", "M0+"
 #
 # ---------------------------------------------------------------------------- #
 
@@ -39,12 +38,20 @@ include(${CMAKE_CURRENT_LIST_DIR}/SysConfig.cmake)
 set(_CompilerSetupDir "${CMAKE_CURRENT_LIST_DIR}")
 
 
-# Reporting function for compiler setup.
-
-
-
 # Compiler setup function.
 function(heph_setup_compiler)
+
+    # Define function interface.
+    set(options "")
+    set(oneValueArgs ARM_ARCH)
+    set(multiValueArgs "")
+
+    # Parse function arguments.
+    cmake_parse_arguments(HEPH_COMPILER_ARGS
+                          "${options}"
+                          "${oneValueArgs}"
+                          "${multiValueArgs}"
+                          ${ARGN})
 
     # Get platform and compiler ids.
     set(PlatformIdentity "")
@@ -109,25 +116,25 @@ function(heph_setup_compiler)
     # ARM bare metal.
     if (PlatformIdentity STREQUAL "arm_bare")
 
-        # Hardware specifics flags
-        set(ARM_CORTEX ${ARGV})
-        if (ARM_CORTEX STREQUAL "")
+        # Check if MCU flavor is defined.
+        if (HEPH_COMPILER_ARGS_ARM_ARCH STREQUAL "")
             message(FATAL_ERROR
-                    "HEPHAISTOS:: For ARM+GCC the CPU type is required to be defined by the ARM_CORTEX option")
+                    "HEPHAISTOS:: For GCC ARM the MPU type is required to be defined by the ARM_ARCH argument")
         endif ()
-        message(STATUS
-                "HEPHAISTOS:: Loading compiler flags for ARM + GCC")
-        message(STATUS
-            "HEPHAISTOS:: ${ARM_CORTEX}")
-        if (ARM_CORTEX STREQUAL "M4")
+
+        message(STATUS "HEPHAISTOS:: Loading compiler flags for ARM + GCC")
+
+        # Cortex-M4.
+        if (HEPH_COMPILER_ARGS_ARM_ARCH STREQUAL "M4")
             message(STATUS "HEPHAISTOS:: Using ARM Cortex-M4 flags")
             include(${_CompilerSetupDir}/compilers_support/ARM_GCC_Cortex-M4.cmake)
-        elseif (ARM_CORTEX STREQUAL "M0+")
+        # # Cortex-M0+.
+        elseif (HEPH_COMPILER_ARGS_ARM_ARCH STREQUAL "M0+")
             message(STATUS "HEPHAISTOS:: Using ARM Cortex-M0+ flags")
             include(${_CompilerSetupDir}/compilers_support/ARM_GCC_Cortex-M0+.cmake)
         else ()
             message(FATAL_ERROR
-                    "HEPHAISTOS:: ARM_CORTEX invalid value")
+                    "HEPHAISTOS:: ARM_ARCH unsupported value: ${HEPH_COMPILER_ARGS_ARM_ARCH}")
         endif ()
 
         # Generic GCC ARM flags.
