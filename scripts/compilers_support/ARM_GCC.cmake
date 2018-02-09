@@ -34,6 +34,54 @@ set(CMAKE_C_STANDARD_REQUIRED TRUE PARENT_SCOPE)
 set(CMAKE_CXX_STANDARD_REQUIRED TRUE PARENT_SCOPE)
 
 
+# --- Flags common to all configurations ---
+
+# Common C flags.
+set(C_COMMON
+    -mthumb
+    -ffreestanding
+    -fno-move-loop-invariants
+    -fmessage-length=0
+    -funsigned-char
+    -fomit-frame-pointer
+    -fno-exceptions
+    -nostdlib
+    #
+    -flto
+    -ffunction-sections
+    -fdata-sections
+    # Architecture.
+    ${C_CORTEX_SPECIFIC_FLAGS})
+
+# Common CXX flags.
+set(CXX_COMMON
+    -mthumb
+    -ffreestanding
+    -fno-move-loop-invariants
+    -fmessage-length=0
+    -funsigned-char
+    -fomit-frame-pointer
+    -fabi-version=0
+    -fno-exceptions
+    -fno-rtti
+    -fno-use-cxa-atexit
+    -fno-threadsafe-statics
+    -nostdlib
+    #
+    -flto
+    -ffunction-sections
+    -fdata-sections
+    # Architecture.
+    ${CXX_CORTEX_SPECIFIC_FLAGS})
+
+# Common linker flags.
+set(LINKER_COMMON
+    -flto
+    --gc-sections
+    --specs=nano.specs
+    --specs=nosys.specs)
+
+
 # --- Debug flags ---
 
 # C debug flags.

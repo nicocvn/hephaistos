@@ -78,36 +78,3 @@ set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
 # For libraries and headers only look in targets directory.
 set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
 set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
-
-# Architecture specific flags.
-# Those flags set the thumb mode and disable some extensions not used in bare
-# metal projects (e.g., exceptions).
-# C ARM specifics flags.
-set(C_ARM_SPECIFICS_FLAGS
-    "-mthumb -ffreestanding -fno-move-loop-invariants -fmessage-length=0\
- -funsigned-char -fomit-frame-pointer -ffunction-sections -fdata-sections\
- -nostdlib")
-# C++ ARM specifics flags.
-set(CXX_ARM_SPECIFICS_FLAGS
-    "-mthumb -ffreestanding -fno-move-loop-invariants -fmessage-length=0\
- -funsigned-char -fomit-frame-pointer -ffunction-sections -fdata-sections\
- -fabi-version=0 -fno-exceptions -fno-rtti -fno-use-cxa-atexit\
- -fno-threadsafe-statics -nostdlib")
-
-# Compile object definitions.
-set(CMAKE_C_COMPILE_OBJECT
-    "<CMAKE_C_COMPILER> <DEFINES> <INCLUDES> ${C_ARM_SPECIFICS_FLAGS}\
- <FLAGS> -o <OBJECT> -c <SOURCE>")
-set(CMAKE_CXX_COMPILE_OBJECT
-    "<CMAKE_CXX_COMPILER> <DEFINES> <INCLUDES> ${CXX_ARM_SPECIFICS_FLAGS}\
- <FLAGS> -o <OBJECT> -c <SOURCE>")
-
-# Linking command definition.
-# We use nano (small C standard library) and nosys (no system dependencies)
-# specs.
-set(CMAKE_C_LINK_EXECUTABLE
-    "<CMAKE_C_COMPILER> -Wl,--gc-sections --specs=nano.specs --specs=nosys.specs\
- <FLAGS> <CMAKE_C_LINK_FLAGS> <LINK_FLAGS> <OBJECTS>  -o <TARGET> <LINK_LIBRARIES>")
-set(CMAKE_CXX_LINK_EXECUTABLE
-    "<CMAKE_CXX_COMPILER> -Wl,--gc-sections --specs=nano.specs --specs=nosys.specs\
- <FLAGS> <CMAKE_C_LINK_FLAGS> <LINK_FLAGS> <OBJECTS>  -o <TARGET> <LINK_LIBRARIES>")

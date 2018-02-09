@@ -2,14 +2,8 @@
 
 # C specifics flags.
 set(C_CORTEX_SPECIFIC_FLAGS
-    -mcpu=cortex-m0plus
-    -ffunction-sections
-    -fdata-sections)
+    -mcpu=cortex-m0plus)
 
 # C++ specifics flags.
 set(CXX_CORTEX_SPECIFIC_FLAGS
-    -mcpu=cortex-m0plus
-    -ffunction-sections
-    -fdata-sections
-    -fno-exceptions
-    -fno-rtti)
+    -mcpu=cortex-m0plus)

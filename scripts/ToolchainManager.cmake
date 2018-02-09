@@ -14,8 +14,7 @@
 #       This commands outputs the settings for the current toolchain.
 #
 #
-#   heph_setup_toolchain([TOOLCHAIN toolchainID]
-#                        [QUIET])
+#   heph_setup_toolchain([TOOLCHAIN toolchainID])
 #
 #       This command sets up the toolchain to be used by the project. The
 #       following supported toolchains are:
@@ -32,13 +31,11 @@
 #       toolchain.
 #       For embedded projects it is required to properly set the toolchain.
 #
-#       The QUIET option can be used to turn off any logging output.
-#
 #       The toolchain is set by modifying the CMAKE_TOOLCHAIN_FILE variable,
 #       and this has to be done before any project declaration.
 #
 #       --- GCC_ARM_BAREMETAL ---
-#       For the GCC ARM toolchain the path to the installation needs to be set
+#       For the GCC ARM toolchain the path to the root directory needs to be set
 #       in the variable ARM_TC_PATH.
 #
 # ---------------------------------------------------------------------------- #
@@ -102,7 +99,7 @@ endfunction()
 function(heph_setup_toolchain)
 
     # Define function interface.
-    set(options QUIET)          # Options.
+    set(options "")          # Options.
     set(oneValueArgs            # Arguments (all single value arguments).
         TOOLCHAIN)
     set(multiValueArgs "")      # None.
@@ -114,19 +111,19 @@ function(heph_setup_toolchain)
                           "${multiValueArgs}" ${ARGN})
 
     # Default case.
-    if (NOT TCMGR_ARGS_TOOLCHAIN)
-        if (NOT TCMGR_ARGS_QUIET)
-            message(STATUS
-                    "HEPHAISTOS:: Using default toolchain")
-        endif ()
+    if (NOT TCMGR_ARGS_TOOLCHAIN)    
+        message(STATUS
+                "HEPHAISTOS:: Using default toolchain")
         return ()
     endif ()
 
     # GCC_ARM_BAREMETAL.
     if (TCMGR_ARGS_TOOLCHAIN STREQUAL "GCC_ARM_BAREMETAL")
-        if (NOT TCMGR_ARGS_QUIET)
-            message(STATUS "HEPHAISTOS:: Toolchain set to GCC_ARM_BAREMETAL")
+        if (NOT DEFINED ARM_TC_PATH)
+            message(FATAL_ERROR
+                    "ARM_TC_PATH is required to be set to the GCC ARM toolchain root directory")
         endif ()
+        message(STATUS "HEPHAISTOS:: Toolchain set to GCC_ARM_BAREMETAL")
         set(CMAKE_TOOLCHAIN_FILE
             "${_ToolchainManagerDir}/toolchains_support/GCC_ARM_BAREMETAL.cmake"
             PARENT_SCOPE)
@@ -135,9 +132,7 @@ function(heph_setup_toolchain)
 
     # GCC_OSX_HOMEBREW.
     if (TCMGR_ARGS_TOOLCHAIN STREQUAL "GCC_OSX_HOMEBREW")
-        if (NOT TCMGR_ARGS_QUIET)
-            message(STATUS "HEPHAISTOS:: Toolchain set to GCC_OSX_HOMEBREW")
-        endif ()
+        message(STATUS "HEPHAISTOS:: Toolchain set to GCC_OSX_HOMEBREW")
         set(CMAKE_TOOLCHAIN_FILE
             "${_ToolchainManagerDir}/toolchains_support/GCC_OSX_HOMEBREW.cmake"
             PARENT_SCOPE)
@@ -146,9 +141,7 @@ function(heph_setup_toolchain)
 
     # GCC_LINUX_RECENT.
     if (TCMGR_ARGS_TOOLCHAIN STREQUAL "GCC_LINUX_RECENT")
-        if (NOT TCMGR_ARGS_QUIET)
-            message(STATUS "HEPHAISTOS:: Toolchain set to GCC_LINUX_RECENT")
-        endif ()
+        message(STATUS "HEPHAISTOS:: Toolchain set to GCC_LINUX_RECENT")
         set(CMAKE_TOOLCHAIN_FILE
             "${_ToolchainManagerDir}/toolchains_support/GCC_LINUX_RECENT.cmake"
             PARENT_SCOPE)
