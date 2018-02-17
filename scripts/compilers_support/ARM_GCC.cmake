@@ -88,6 +88,7 @@ set(LINKER_COMMON
 set(C_DEBUG_FLAGS
     ${C_CORTEX_SPECIFIC_FLAGS}
     -g3
+    -Og
     -Wall
     -Wextra
     -Wunused-value
@@ -103,6 +104,7 @@ set(C_DEBUG_FLAGS
 set(CXX_DEBUG_FLAGS
     ${CXX_CORTEX_SPECIFIC_FLAGS}
     -g3
+    -Og
     -Wall
     -Wextra
     -Wunused-value
