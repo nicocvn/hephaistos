@@ -20,6 +20,7 @@ cmake_minimum_required(VERSION 3.8)
 set(_HephaistosDir ${CMAKE_CURRENT_LIST_DIR})
 
 # Load scripts.
+include(${_HephaistosDir}/scripts/SysConfig.cmake)
 include(${_HephaistosDir}/scripts/CompilerSetup.cmake)
 include(${_HephaistosDir}/scripts/ProjectTree.cmake)
 include(${_HephaistosDir}/scripts/ToolchainManager.cmake)
