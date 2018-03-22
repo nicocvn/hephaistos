@@ -77,7 +77,7 @@ set(CXX_COMMON
 # Common linker flags.
 set(LINKER_COMMON
     -flto
-    --gc-sections
+    -Wl,--gc-sections
     --specs=nano.specs
     --specs=nosys.specs)
 
@@ -86,7 +86,7 @@ set(LINKER_COMMON
 
 # C debug flags.
 set(C_DEBUG_FLAGS
-    ${C_CORTEX_SPECIFIC_FLAGS}
+    ${C_COMMON}
     -g3
     -Og
     -Wall
@@ -102,7 +102,7 @@ set(C_DEBUG_FLAGS
 
 # C++ debug flags.
 set(CXX_DEBUG_FLAGS
-    ${CXX_CORTEX_SPECIFIC_FLAGS}
+    ${CXX_COMMON}
     -g3
     -Og
     -Wall
@@ -126,7 +126,7 @@ set(LINKER_DEBUG_FLAGS ${LINKER_COMMON})
 
 # C release flags.
 set(C_RELEASE_FLAGS
-    ${C_CORTEX_SPECIFIC_FLAGS}
+    ${C_COMMON}
     -O2
     -g3
     -DNDEBUG
@@ -134,7 +134,7 @@ set(C_RELEASE_FLAGS
 
 # C++ release flags.
 set(CXX_RELEASE_FLAGS
-    ${CXX_CORTEX_SPECIFIC_FLAGS}
+    ${CXX_COMMON}
     -Wno-c++14-compat
     -O2
     -g3
@@ -149,7 +149,7 @@ set(LINKER_RELEASE_FLAGS ${LINKER_COMMON})
 
 # C release with debug info flags.
 set(C_RELWITHDEBINFO_FLAGS
-    ${C_CORTEX_SPECIFIC_FLAGS}
+    ${C_COMMON}
     -O2
     -g3
     -DNDEBUG
@@ -157,7 +157,7 @@ set(C_RELWITHDEBINFO_FLAGS
 
 # C++ release with debug info flags.
 set(CXX_RELWITHDEBINFO_FLAGS
-    ${CXX_CORTEX_SPECIFIC_FLAGS}
+    ${CXX_COMMON}
     -Wno-c++14-compat
     -O2
     -g3
@@ -172,7 +172,7 @@ set(LINKER_RELWITHDEBINFO_FLAGS ${LINKER_COMMON})
 
 # C minimal size release flags.
 set(C_MINSIZEREL_FLAGS
-    ${C_CORTEX_SPECIFIC_FLAGS}
+    ${C_COMMON}
     -Os
     -g3
     -DNDEBUG
@@ -180,7 +180,7 @@ set(C_MINSIZEREL_FLAGS
 
 # C++ minimal size release flags.
 set(CXX_MINSIZEREL_FLAGS
-    ${CXX_CORTEX_SPECIFIC_FLAGS}
+    ${CXX_COMMON}
     -Wno-c++14-compat
     -Os
     -g3

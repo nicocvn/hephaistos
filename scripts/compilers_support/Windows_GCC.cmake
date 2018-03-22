@@ -107,8 +107,7 @@ set(CXX_RELEASE_FLAGS
 # Release linker flags.
 set(LINKER_RELEASE_FLAGS
     -flto
-    --gc-sections
-    -s)
+    -Wl,--gc-sections)
 
 
 # --- RelWithDebInfo flags ---
@@ -175,8 +174,7 @@ set(CXX_MINSIZEREL_FLAGS
 # Minimal size release linker flags.
 set(LINKER_MINSIZEREL_FLAGS
     -flto
-    --gc-sections
-    -s
+    -Wl,--gc-sections
     --relax)
 
 
