@@ -137,8 +137,7 @@ set(CXX_RELWITHDEBINFO_FLAGS
     -DNDEBUG)
 
 # Release with debug info linker flags.
-set(LINKER_RELWITHDEBINFO_FLAGS
-    -dead_strip)
+set(LINKER_RELWITHDEBINFO_FLAGS)
 
 
 # --- MinSizeRel flags ---

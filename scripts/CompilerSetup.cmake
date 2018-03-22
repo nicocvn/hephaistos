@@ -117,19 +117,17 @@ function(heph_setup_compiler)
     if (PlatformIdentity STREQUAL "arm_bare")
 
         # Hardware specifics flags
-        set(ARM_CORTEX ${ARGV})
-        if (ARM_CORTEX STREQUAL "")
+        if (HEPH_COMPILER_ARGS_ARM_ARCH STREQUAL "")
             message(FATAL_ERROR
                     "HEPHAISTOS:: For GCC ARM the MCU type is required to be defined by the ARM_ARCH argument")
         endif ()
         message(STATUS
                 "HEPHAISTOS:: Loading compiler flags for ARM + GCC")
-        message(STATUS
-            "HEPHAISTOS:: ${ARM_CORTEX}")
-        if (ARM_CORTEX STREQUAL "M4")
+        message(STATUS "HEPHAISTOS:: ${ARM_CORTEX}")
+        if (HEPH_COMPILER_ARGS_ARM_ARCH STREQUAL "M4")
             message(STATUS "HEPHAISTOS:: Using ARM Cortex-M4 flags")
             include(${_CompilerSetupDir}/compilers_support/ARM_GCC_Cortex-M4.cmake)
-        elseif (ARM_CORTEX STREQUAL "M0+")
+        elseif (HEPH_COMPILER_ARGS_ARM_ARCH STREQUAL "M0+")
             message(STATUS "HEPHAISTOS:: Using ARM Cortex-M0+ flags")
             include(${_CompilerSetupDir}/compilers_support/ARM_GCC_Cortex-M0+.cmake)
         else ()

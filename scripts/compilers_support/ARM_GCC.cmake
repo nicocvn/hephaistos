@@ -118,6 +118,9 @@ set(CXX_DEBUG_FLAGS
     -Wno-c++14-compat
     -Weffc++)
 
+# Debug linker flags.
+set(LINKER_DEBUG_FLAGS ${LINKER_COMMON})
+
 
 # --- Release flags ---
 
@@ -127,8 +130,7 @@ set(C_RELEASE_FLAGS
     -O2
     -g3
     -DNDEBUG
-    -flto
-    -Wl,--as-needed,--relax,-flto)
+    -flto)
 
 # C++ release flags.
 set(CXX_RELEASE_FLAGS
@@ -137,8 +139,10 @@ set(CXX_RELEASE_FLAGS
     -O2
     -g3
     -DNDEBUG
-    -flto
-    -Wl,--as-needed,--relax,-flto)
+    -flto)
+
+# Release linker flags.
+set(LINKER_RELEASE_FLAGS ${LINKER_COMMON})
 
 
 # --- RelWithDebInfo flags ---
@@ -149,8 +153,7 @@ set(C_RELWITHDEBINFO_FLAGS
     -O2
     -g3
     -DNDEBUG
-    -flto
-    -Wl,--as-needed,--relax,-flto)
+    -flto)
 
 # C++ release with debug info flags.
 set(CXX_RELWITHDEBINFO_FLAGS
@@ -159,8 +162,10 @@ set(CXX_RELWITHDEBINFO_FLAGS
     -O2
     -g3
     -DNDEBUG
-    -flto
-    -Wl,--as-needed,--relax,-flto)
+    -flto)
+
+# RelWithDebInfo linker flags.
+set(LINKER_RELWITHDEBINFO_FLAGS ${LINKER_COMMON})
 
 
 # --- MinSizeRel flags ---
@@ -171,8 +176,7 @@ set(C_MINSIZEREL_FLAGS
     -Os
     -g3
     -DNDEBUG
-    -flto
-    -Wl,--as-needed,--relax,-flto)
+    -flto)
 
 # C++ minimal size release flags.
 set(CXX_MINSIZEREL_FLAGS
@@ -181,8 +185,10 @@ set(CXX_MINSIZEREL_FLAGS
     -Os
     -g3
     -DNDEBUG
-    -flto
-    -Wl,--as-needed,--relax,-flto)
+    -flto)
+
+# MinSizeRel linker flags.
+set(LINKER_MINSIZEREL_FLAGS ${LINKER_COMMON})
 
 
 # --- Compiler flags setup ---
@@ -192,33 +198,45 @@ set(CXX_MINSIZEREL_FLAGS
 # We start by replacing the previously defined lists with string.
 string(REPLACE ";" " " C_DEBUG_FLAGS "${C_DEBUG_FLAGS}")
 string(REPLACE ";" " " CXX_DEBUG_FLAGS "${CXX_DEBUG_FLAGS}")
+string(REPLACE ";" " " LINKER_DEBUG_FLAGS "${LINKER_DEBUG_FLAGS}")
 #
 string(REPLACE ";" " " C_RELEASE_FLAGS "${C_RELEASE_FLAGS}")
 string(REPLACE ";" " " CXX_RELEASE_FLAGS "${CXX_RELEASE_FLAGS}")
+string(REPLACE ";" " " LINKER_RELEASE_FLAGS "${LINKER_RELEASE_FLAGS}")
 #
 string(REPLACE ";" " " C_RELWITHDEBINFO_FLAGS "${C_RELWITHDEBINFO_FLAGS}")
 string(REPLACE ";" " " CXX_RELWITHDEBINFO_FLAGS "${CXX_RELWITHDEBINFO_FLAGS}")
+string(REPLACE ";" " " LINKER_RELWITHDEBINFO_FLAGS "${LINKER_RELWITHDEBINFO_FLAGS}")
 #
 string(REPLACE ";" " " C_MINSIZEREL_FLAGS "${C_MINSIZEREL_FLAGS}")
 string(REPLACE ";" " " CXX_MINSIZEREL_FLAGS "${CXX_MINSIZEREL_FLAGS}")
+string(REPLACE ";" " " LINKER_MINSIZEREL_FLAGS "${LINKER_MINSIZEREL_FLAGS}")
 
 # Set CMake flags.
 set(CMAKE_C_FLAGS_DEBUG "${C_DEBUG_FLAGS}"
     CACHE STRING "Debug C flags" FORCE)
 set(CMAKE_CXX_FLAGS_DEBUG "${CXX_DEBUG_FLAGS}"
     CACHE STRING "Debug C++ flags" FORCE)
+set(CMAKE_EXE_LINKER_FLAGS_DEBUG "${LINKER_DEBUG_FLAGS}"
+    CACHE STRING "Debug linker flags" FORCE)
 #
 set(CMAKE_C_FLAGS_RELEASE "${C_RELEASE_FLAGS}"
     CACHE STRING "Release C flags" FORCE)
 set(CMAKE_CXX_FLAGS_RELEASE "${CXX_RELEASE_FLAGS}"
     CACHE STRING "Release C++ flags" FORCE)
+set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${LINKER_RELEASE_FLAGS}"
+    CACHE STRING "Release linker flags" FORCE)
 #
 set(CMAKE_C_FLAGS_RELWITHDEBINFO "${C_RELWITHDEBINFO_FLAGS}"
     CACHE STRING "RelWithDebInfo C flags" FORCE)
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CXX_RELWITHDEBINFO_FLAGS}"
     CACHE STRING "RelWithDebInfo C++ flags" FORCE)
+set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO "${LINKER_RELWITHDEBINFO_FLAGS}"
+    CACHE STRING "RelWithDebInfo linker flags" FORCE)
 #
 set(CMAKE_C_FLAGS_MINSIZEREL "${C_MINSIZEREL_FLAGS}"
     CACHE STRING "MinSizeRel C flags" FORCE)
 set(CMAKE_CXX_FLAGS_MINSIZEREL "${CXX_MINSIZEREL_FLAGS}"
     CACHE STRING "MinSizeRel C++ flags" FORCE)
+set(CMAKE_EXE_LINKER_FLAGS_MINSIZEREL "${LINKER_MINSIZEREL_FLAGS}"
+    CACHE STRING "MinSizeRel linker flags" FORCE)
