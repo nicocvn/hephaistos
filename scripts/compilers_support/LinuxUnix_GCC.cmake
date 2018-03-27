@@ -180,7 +180,7 @@ set(CXX_MINSIZEREL_FLAGS
 set(LINKER_MINSIZEREL_FLAGS
     -flto
     -Wl,--gc-sections
-    --relax)
+    -Wl,--relax)
 
 
 # --- Compiler flags setup ---
