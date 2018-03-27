@@ -45,7 +45,6 @@ set(C_COMMON
     -funsigned-char
     -fomit-frame-pointer
     -fno-exceptions
-    -nostdlib
     #
     -flto
     -ffunction-sections
@@ -66,7 +65,6 @@ set(CXX_COMMON
     -fno-rtti
     -fno-use-cxa-atexit
     -fno-threadsafe-statics
-    -nostdlib
     #
     -flto
     -ffunction-sections
