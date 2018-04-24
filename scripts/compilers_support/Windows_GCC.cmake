@@ -16,6 +16,11 @@
 #   MinSizeRel relies on LTO to minimize binary size.
 #   For MinSizeRel RTTI is disabled.
 #
+# FLOAT PERFORMANCE:
+#
+#   AVX/AVX2 is disabled on all build types. This seems to produce some
+#   inconsistency in floating point computation code.
+#
 # ---------------------------------------------------------------------------- #
 
 
@@ -31,6 +36,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED TRUE PARENT_SCOPE)
 # C debug flags.
 set(C_DEBUG_FLAGS
     -fvisibility=hidden
+    -fmno-avx
+    -fmno-avx2
     -g3
     -Wall
     -Wextra
@@ -47,6 +54,8 @@ set(C_DEBUG_FLAGS
 # C++ debug flags.
 set(CXX_DEBUG_FLAGS
     -fvisibility=hidden
+    -fmno-avx
+    -fmno-avx2
     -g3
     -Wall
     -Wextra
@@ -67,6 +76,8 @@ set(CXX_DEBUG_FLAGS
 # C release flags.
 set(C_RELEASE_FLAGS
     -fvisibility=hidden
+    -fmno-avx
+    -fmno-avx2
     -O2
     -DNDEBUG
     -march=native
@@ -77,6 +88,8 @@ set(C_RELEASE_FLAGS
 set(CXX_RELEASE_FLAGS
     -fvisibility=hidden
     -Wno-c++14-compat
+    -fmno-avx
+    -fmno-avx2
     -O2
     -DNDEBUG
     -march=native
@@ -88,6 +101,8 @@ set(CXX_RELEASE_FLAGS
 # C release with debug info flags.
 set(C_RELWITHDEBINFO_FLAGS
     -fvisibility=hidden
+    -fmno-avx
+    -fmno-avx2
     -O2
     -g
     -DNDEBUG
@@ -99,6 +114,8 @@ set(C_RELWITHDEBINFO_FLAGS
 set(CXX_RELWITHDEBINFO_FLAGS
     -fvisibility=hidden
     -Wno-c++14-compat
+    -fmno-avx
+    -fmno-avx2
     -O2
     -g
     -DNDEBUG
@@ -114,6 +131,8 @@ set(CXX_RELWITHDEBINFO_FLAGS
 # C minimal size release flags.
 set(C_MINSIZEREL_FLAGS
     -fvisibility=hidden
+    -fmno-avx
+    -fmno-avx2
     -Os
     -DNDEBUG
     -march=native
@@ -129,6 +148,8 @@ set(C_MINSIZEREL_FLAGS
 set(CXX_MINSIZEREL_FLAGS
     -fvisibility=hidden
     -Wno-c++14-compat
+    -fmno-avx
+    -fmno-avx2
     -Os
     -DNDEBUG
     -march=native

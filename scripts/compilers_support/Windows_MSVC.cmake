@@ -10,6 +10,13 @@
 #   This is not implemented as of now and will therefore use the default flags
 #   provided by CMake Visual Studio generator.
 #
+# FLOAT PERFORMANCE:
+#
+#   By default with MSVC SSE/SSE2 is enabled for x64 builds so we do not need to
+#   specify it.
+#   AVX is not enabled unless /arch:AVX or /arch:AVX2 is set.
+#   In other words, there is nothing special to set here for float performance.
+#
 # ---------------------------------------------------------------------------- #
 
 
