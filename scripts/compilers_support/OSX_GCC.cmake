@@ -27,6 +27,13 @@ set(CMAKE_C_STANDARD_REQUIRED TRUE PARENT_SCOPE)
 set(CMAKE_CXX_STANDARD_REQUIRED TRUE PARENT_SCOPE)
 
 
+# Flags to disable AVX/AVX2.
+set(NOAVX_FLAGS "")
+if (DISABLE_AVX)
+    set(NOAVX_FLAGS -mno-avx -mno-avx2)
+endif ()
+
+
 # --- Debug flags ---
 
 # C debug flags.
@@ -49,7 +56,8 @@ set(C_DEBUG_FLAGS
     -Wreturn-type
     # Sanitizer
     -fsanitize=address
-    -fsanitize=undefined)
+    -fsanitize=undefined
+    ${NOAVX_FLAGS})
 
 # C++ debug flags.
 set(CXX_DEBUG_FLAGS
@@ -72,7 +80,8 @@ set(CXX_DEBUG_FLAGS
     -Weffc++
     # Sanitizer
     -fsanitize=address
-    -fsanitize=undefined)
+    -fsanitize=undefined
+    ${NOAVX_FLAGS})
 
 # Debug linker flags.
 set(LINKER_DEBUG_FLAGS )
@@ -93,7 +102,8 @@ set(C_RELEASE_FLAGS
     # LTO.
     -flto
     -ffunction-sections
-    -fdata-sections)
+    -fdata-sections
+    ${NOAVX_FLAGS})
 
 # C++ release flags.
 set(CXX_RELEASE_FLAGS
@@ -107,7 +117,8 @@ set(CXX_RELEASE_FLAGS
     # LTO.
     -flto
     -ffunction-sections
-    -fdata-sections)
+    -fdata-sections
+    ${NOAVX_FLAGS})
 
 # Release linker flags.
 # With GCC the linker is accepting the flto flag.
@@ -128,7 +139,8 @@ set(C_RELWITHDEBINFO_FLAGS
     # Optimization with debug symbols.
     -O2
     -g3
-    -DNDEBUG)
+    -DNDEBUG
+    ${NOAVX_FLAGS})
 
 # C++ release flags.
 set(CXX_RELWITHDEBINFO_FLAGS
@@ -139,7 +151,8 @@ set(CXX_RELWITHDEBINFO_FLAGS
     # Optimization with debug symbols.
     -O2
     -g3
-    -DNDEBUG)
+    -DNDEBUG
+    ${NOAVX_FLAGS})
 
 # Release with debug info linker flags.
 set(LINKER_RELWITHDEBINFO_FLAGS)
@@ -160,7 +173,8 @@ set(C_MINSIZEREL_FLAGS
     # LTO.
     -flto
     -ffunction-sections
-    -fdata-sections)
+    -fdata-sections
+    ${NOAVX_FLAGS})
 
 # C++ minimal size release flags.
 set(CXX_MINSIZEREL_FLAGS
@@ -175,7 +189,8 @@ set(CXX_MINSIZEREL_FLAGS
     # LTO.
     -flto
     -ffunction-sections
-    -fdata-sections)
+    -fdata-sections
+    ${NOAVX_FLAGS})
 
 # Minimal size release linker flags.
 set(LINKER_MINSIZEREL_FLAGS

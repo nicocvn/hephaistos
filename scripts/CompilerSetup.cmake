@@ -42,7 +42,7 @@ set(_CompilerSetupDir "${CMAKE_CURRENT_LIST_DIR}")
 function(heph_setup_compiler)
 
     # Define function interface.
-    set(options "")
+    set(options NO_AVX)
     set(oneValueArgs ARM_ARCH)
     set(multiValueArgs "")
 
@@ -58,6 +58,14 @@ function(heph_setup_compiler)
     set(CompilerIdentity "")
     heph_platform_id(PLATFORM PlatformIdentity)
     heph_compiler_id(COMPILER CompilerIdentity)
+
+    # Check the NO_AVX option.
+    set(DISABLE_AVX OFF)
+    if (HEPH_COMPILER_ARGS_NO_AVX)
+        message(STATUS
+                "HEPHAISTOS:: AVX/AVX2 instructions disabled.")
+        set(DISABLE_AVX ON)
+    endif ()
 
     # Below we load the corresponding compiler flags.
 
@@ -115,6 +123,12 @@ function(heph_setup_compiler)
 
     # ARM bare metal.
     if (PlatformIdentity STREQUAL "arm_bare")
+
+        # Warning about NO_AVX.
+        if (HEPH_COMPILER_ARGS_NO_AVX)
+            message(STATUS
+                    "HEPHAISTOS:: NO_AVX has no effects with GCC ARM.")
+        endif ()
 
         # Hardware specifics flags
         if (HEPH_COMPILER_ARGS_ARM_ARCH STREQUAL "")
