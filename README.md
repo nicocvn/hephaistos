@@ -89,8 +89,18 @@ Note that, compiler flags for GCC on Linux and Unix platforms are functional for
 
 The compiler will be identified based on the toolchain setup. The platform identification relies on the system description. For ARM bare metal projects it is required to configure the toolchain using [heph_setup_toolchain].
 
+### Disabling AVX/AVX2 ###
+The option `NO_AVX` can be passed when setting up the compiler to disable AVX and AVX2 instructions. For example:
+
+```
+heph_setup_compiler(TOOLCHAIN GCC_LINUX_RECENT NO_AVX)
+```
+
+This option has no effect when using the GCC ARM toolchain for bare metal projects.
+
+
 ### GCC ARM compiler ###
-When using the GCC ARM toolchain for embedded projects, the compiler setup command requires the type of ARM hardware to be explicitly specified. This is used by the script to properly define compiler flags for hardware support (*e.g.*, FPU).
+When using the GCC ARM toolchain for bare metal projects, the compiler setup command requires the type of ARM hardware to be explicitly specified. This is used by the script to properly define compiler flags for hardware support (*e.g.*, FPU).
 
 The current implementation supports the following ARM architectures:
 
@@ -101,10 +111,10 @@ To use a specific architecture the compiler setup should be invoked as follow:
 
 ```
 # For Cortex-M0+.
-heph_setup_compiler("M0+")
+heph_setup_compiler(ARM_ARCH M0+)
 
 # For Cortex-M4.
-heph_setup_compiler("M4")
+heph_setup_compiler(ARM_ARCH M4)
 ```
 
 The compiler setup is designed for bare metal builds ([ARM + GCC](scripts/compilers_support/ARM_GCC.cmake)).
