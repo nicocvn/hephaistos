@@ -42,6 +42,8 @@ set(C_DEBUG_FLAGS
     -g3
     -fno-omit-frame-pointer
     -fexceptions
+    # Linker.
+    -fuse-ld=gold
     # Warnings.
     -Wall
     -Wextra
@@ -65,6 +67,8 @@ set(CXX_DEBUG_FLAGS
     -g3
     -fno-omit-frame-pointer
     -fexceptions
+    # Linker.
+    -fuse-ld=gold
     # Warnings.
     -Wall
     -Wextra
@@ -93,6 +97,8 @@ set(LINKER_DEBUG_FLAGS )
 set(C_RELEASE_FLAGS
     -fvisibility=hidden
     -fexceptions
+    # Linker.
+    -fuse-ld=gold
     # Arch.
     -march=native
     -mfpmath=sse
@@ -108,6 +114,8 @@ set(C_RELEASE_FLAGS
 # C++ release flags.
 set(CXX_RELEASE_FLAGS
     -fvisibility=hidden
+    # Linker.
+    -fuse-ld=gold
     # Arch.
     -march=native
     -mfpmath=sse
@@ -132,6 +140,8 @@ set(LINKER_RELEASE_FLAGS
 set(C_RELWITHDEBINFO_FLAGS
     -fvisibility=hidden
     -fexceptions
+    # Linker.
+    -fuse-ld=gold
     # Arch.
     -march=native
     -mfpmath=sse
@@ -144,6 +154,8 @@ set(C_RELWITHDEBINFO_FLAGS
 # C++ release flags.
 set(CXX_RELWITHDEBINFO_FLAGS
     -fvisibility=hidden
+    # Linker.
+    -fuse-ld=gold
     # Arch.
     -march=native
     -mfpmath=sse
@@ -163,6 +175,8 @@ set(LINKER_RELWITHDEBINFO_FLAGS)
 set(C_MINSIZEREL_FLAGS
     -fvisibility=hidden
     -fexceptions
+    # Linker.
+    -fuse-ld=gold
     # Arch.
     -march=native
     -mfpmath=sse
@@ -179,6 +193,8 @@ set(C_MINSIZEREL_FLAGS
 set(CXX_MINSIZEREL_FLAGS
     -fvisibility=hidden
     -fno-rtti
+    # Linker.
+    -fuse-ld=gold
     # Arch.
     -march=native
     -mfpmath=sse
