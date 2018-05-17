@@ -23,18 +23,25 @@ find_path(HBREW_GCC_7
           NAME gcc-7
           HINTS /usr/local/homebrew/bin /usr/local/bin
           NO_DEFAULT_PATH)
-if (NOT HBREW_GCC_7 AND NOT HBREW_GCC_6)
+find_path(HBREW_GCC_8
+          NAME gcc-8
+          HINTS /usr/local/homebrew/bin /usr/local/bin
+          NO_DEFAULT_PATH)
+if (NOT HBREW_GCC_7 AND NOT HBREW_GCC_6 AND NOT HBREW_GCC_8)
     message(FATAL_ERROR
-            "HEPHAISTOS:: Could not locate gcc-6 or gcc-7 in homebrew")
+            "HEPHAISTOS:: Could not locate gcc-6, gcc-7 or gcc-8 in homebrew")
 endif ()
 
 # Switch to most recent version.
 set(GCC_PATH "")
 set(GCC_VER "")
-if (HBREW_GCC_7)
+if (HBREW_GCC_8)
+    set(GCC_PATH "${HBREW_GCC_8}/")
+    set(GCC_VER 8)
+elseif (HBREW_GCC_7)
     set(GCC_PATH "${HBREW_GCC_7}/")
     set(GCC_VER 7)
-else ()
+elseif ()
     set(GCC_PATH "${HBREW_GCC_6}/")
     set(GCC_VER 6)
 endif ()

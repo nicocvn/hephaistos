@@ -46,7 +46,7 @@ The table below lists the supported toolchains:
 | Windows  | MinGW-w64 | YES | supported through `CMAKE_C/CXX_COMPILER`     |
 | Linux    | GCC       | YES | supported by default (see note below)        |
 | OS X     | Clang     | YES | supported by default                         |
-| OS X     | GCC       | YES | `GCC_OSX_HOMEBREW` ID (requires hombrew)     |
+| OS X     | GCC       | YES | `GCC_OSX_HOMEBREW` ID (requires homebrew)    |
 | ARM      | GCC       | YES | `GCC_ARM_BAREMETAL` ID                       |
 
 ### Note on Linux support ###
@@ -89,6 +89,17 @@ Note that, compiler flags for GCC on Linux and Unix platforms are functional for
 
 The compiler will be identified based on the toolchain setup. The platform identification relies on the system description. For ARM bare metal projects it is required to configure the toolchain using [heph_setup_toolchain].
 
+### C++ standard ###
+C++11 will be used as the C++ standard by default. It can be set to C++14 or C++17:
+
+```
+# For C++14 standard.
+heph_setup_compiler(CPP14)
+
+# For C++17 standard.
+heph_setup_compiler(CPP17)
+```
+
 ### Disabling AVX/AVX2 ###
 The option `NO_AVX` can be passed when setting up the compiler to disable AVX and AVX2 instructions. For example:
 
@@ -98,13 +109,13 @@ heph_setup_compiler(TOOLCHAIN GCC_LINUX_RECENT NO_AVX)
 
 This option has no effect when using the GCC ARM toolchain for bare metal projects.
 
-
 ### GCC ARM compiler ###
 When using the GCC ARM toolchain for bare metal projects, the compiler setup command requires the type of ARM hardware to be explicitly specified. This is used by the script to properly define compiler flags for hardware support (*e.g.*, FPU).
 
 The current implementation supports the following ARM architectures:
 
 * Cortex-M0+
+* Cortex-M3
 * Cortex-M4
 
 To use a specific architecture the compiler setup should be invoked as follow:
@@ -112,6 +123,9 @@ To use a specific architecture the compiler setup should be invoked as follow:
 ```
 # For Cortex-M0+.
 heph_setup_compiler(ARM_ARCH M0+)
+
+# For Cortex-M3.
+heph_setup_compiler(ARM_ARCH M3)
 
 # For Cortex-M4.
 heph_setup_compiler(ARM_ARCH M4)

@@ -42,7 +42,7 @@ set(_CompilerSetupDir "${CMAKE_CURRENT_LIST_DIR}")
 function(heph_setup_compiler)
 
     # Define function interface.
-    set(options NO_AVX)
+    set(options NO_AVX CPP14 CPP17)
     set(oneValueArgs ARM_ARCH)
     set(multiValueArgs "")
 
@@ -63,9 +63,27 @@ function(heph_setup_compiler)
     set(DISABLE_AVX OFF)
     if (HEPH_COMPILER_ARGS_NO_AVX)
         message(STATUS
-                "HEPHAISTOS:: AVX/AVX2 instructions disabled.")
+                "HEPHAISTOS:: AVX/AVX2 instructions disabled")
         set(DISABLE_AVX ON)
     endif ()
+
+    # Set language standards.
+    if (HEPH_COMPILER_ARGS_CPP14)
+        message(STATUS
+                "HEPHAISTOS:: Using C++14 standard")
+        set(CMAKE_CXX_STANDARD 14 PARENT_SCOPE)
+    elseif (HEPH_COMPILER_ARGS_CPP17)
+        message(STATUS
+                "HEPHAISTOS:: Using C++17 standard")
+        set(CMAKE_CXX_STANDARD 17 PARENT_SCOPE)
+    else ()
+        message(STATUS
+                "HEPHAISTOS:: Using C++11 standard")
+        set(CMAKE_CXX_STANDARD 11 PARENT_SCOPE)
+    endif ()
+    set(CMAKE_C_STANDARD 99 PARENT_SCOPE)
+    set(CMAKE_C_STANDARD_REQUIRED TRUE PARENT_SCOPE)
+    set(CMAKE_CXX_STANDARD_REQUIRED TRUE PARENT_SCOPE)
 
     # Below we load the corresponding compiler flags.
 
@@ -137,10 +155,12 @@ function(heph_setup_compiler)
         endif ()
         message(STATUS
                 "HEPHAISTOS:: Loading compiler flags for ARM + GCC")
-        message(STATUS "HEPHAISTOS:: ${ARM_CORTEX}")
         if (HEPH_COMPILER_ARGS_ARM_ARCH STREQUAL "M4")
             message(STATUS "HEPHAISTOS:: Using ARM Cortex-M4 flags")
             include(${_CompilerSetupDir}/compilers_support/ARM_GCC_Cortex-M4.cmake)
+        elseif (HEPH_COMPILER_ARGS_ARM_ARCH STREQUAL "M3")
+            message(STATUS "HEPHAISTOS:: Using ARM Cortex-M3 flags")
+            include(${_CompilerSetupDir}/compilers_support/ARM_GCC_Cortex-M3.cmake)
         elseif (HEPH_COMPILER_ARGS_ARM_ARCH STREQUAL "M0+")
             message(STATUS "HEPHAISTOS:: Using ARM Cortex-M0+ flags")
             include(${_CompilerSetupDir}/compilers_support/ARM_GCC_Cortex-M0+.cmake)

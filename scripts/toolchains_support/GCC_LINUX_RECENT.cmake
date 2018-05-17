@@ -9,7 +9,7 @@
 # MODULE:   Hephaistos
 #
 # REQUIREMENTS:
-#   This requires a functional installation of GCC (6 or 7).
+#   This requires a functional installation of GCC (>= 6).
 #   This toolchain file is provided to avoid issue on Linux distributions
 #   still using "old" GCC versions.
 #   Modern versions support LTO and recent C++ standards (among other things).
@@ -18,25 +18,31 @@
 # ---------------------------------------------------------------------------- #
 
 
-# Search for gcc-6 and gcc-7.
+# Search for gcc-6, gcc-7 and gcc-8.
 find_path(LINUX_GCC_6
           NAME gcc-6
           HINTS /usr/bin /usr/local/bin)
 find_path(LINUX_GCC_7
           NAME gcc-7
           HINTS /usr/bin /usr/local/bin)
-if (NOT LINUX_GCC_6 AND NOT LINUX_GCC_7)
+find_path(LINUX_GCC_8
+          NAME gcc-8
+          HINTS /usr/bin /usr/local/bin)
+if (NOT LINUX_GCC_6 AND NOT LINUX_GCC_7 AND NOT LINUX_GCC_8)
     message(FATAL_ERROR
-            "HEPHAISTOS:: Could not locate gcc-6 or gcc-7")
+            "HEPHAISTOS:: Could not locate gcc-6, gcc-7 or gcc-8")
 endif ()
 
 # Switch to most recent version.
 set(GCC_PATH "")
 set(GCC_VER "")
-if (LINUX_GCC_7)
+if (LINUX_GCC_8)
+    set(GCC_PATH "${LINUX_GCC_8}/")
+    set(GCC_VER 8)
+elseif (LINUX_GCC_7)
     set(GCC_PATH "${LINUX_GCC_7}/")
     set(GCC_VER 7)
-else ()
+elseif (LINUX_GCC_6)
     set(GCC_PATH "${LINUX_GCC_6}/")
     set(GCC_VER 6)
 endif ()

@@ -20,13 +20,6 @@
 # ---------------------------------------------------------------------------- #
 
 
-# C99 and C++11 standards.
-set(CMAKE_C_STANDARD 99 PARENT_SCOPE)
-set(CMAKE_CXX_STANDARD 11 PARENT_SCOPE)
-set(CMAKE_C_STANDARD_REQUIRED TRUE PARENT_SCOPE)
-set(CMAKE_CXX_STANDARD_REQUIRED TRUE PARENT_SCOPE)
-
-
 # Flags to disable AVX/AVX2.
 set(NOAVX_FLAGS "")
 if (DISABLE_AVX)

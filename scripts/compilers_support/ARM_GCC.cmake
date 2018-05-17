@@ -27,13 +27,6 @@
 # ---------------------------------------------------------------------------- #
 
 
-# C99 and C++11 standards.
-set(CMAKE_C_STANDARD 99 PARENT_SCOPE)
-set(CMAKE_CXX_STANDARD 11 PARENT_SCOPE)
-set(CMAKE_C_STANDARD_REQUIRED TRUE PARENT_SCOPE)
-set(CMAKE_CXX_STANDARD_REQUIRED TRUE PARENT_SCOPE)
-
-
 # --- Flags common to all configurations ---
 
 # Common C flags.
@@ -113,7 +106,6 @@ set(CXX_DEBUG_FLAGS
     -Wuninitialized
     -Wdouble-promotion
     -Wconversion
-    -Wno-c++14-compat
     -Weffc++)
 
 # Debug linker flags.
@@ -133,7 +125,6 @@ set(C_RELEASE_FLAGS
 # C++ release flags.
 set(CXX_RELEASE_FLAGS
     ${CXX_COMMON}
-    -Wno-c++14-compat
     -O2
     -g3
     -DNDEBUG
@@ -156,7 +147,6 @@ set(C_RELWITHDEBINFO_FLAGS
 # C++ release with debug info flags.
 set(CXX_RELWITHDEBINFO_FLAGS
     ${CXX_COMMON}
-    -Wno-c++14-compat
     -O2
     -g3
     -DNDEBUG
@@ -179,7 +169,6 @@ set(C_MINSIZEREL_FLAGS
 # C++ minimal size release flags.
 set(CXX_MINSIZEREL_FLAGS
     ${CXX_COMMON}
-    -Wno-c++14-compat
     -Os
     -g3
     -DNDEBUG
