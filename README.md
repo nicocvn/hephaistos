@@ -11,8 +11,6 @@ Most of my personal programing projects are usually cross-platform or sometimes 
 * cross-platform support for project configuration, build and install steps,
 * can be used as the project format in [CLion].
 
-This project was originally developed for personal projects and then got sanitized to be used in production at Sendyne Corp.
-
 
 ## Project description ##
 The project is a collection of [CMake] scripts grouped into a module named Hephaistos. In order to use the module, it is sufficient to include the main script [Hephaistos.cmake](Hephaistos.cmake).
